@@ -1,0 +1,76 @@
+{
+  "toolkit": {
+    "version": "1.0",
+    "description": "Shopify AI Toolkit team configuration"
+  },
+  "store": {
+    "url": "${SHOPIFY_STORE_URL}",
+    "apiVersion": "2025-01",
+    "authentication": "cli"
+  },
+  "theme": {
+    "path": "${THEME_PATH}",
+    "autoSync": false,
+    "validation": {
+      "enabled": true,
+      "strict": true,
+      "autoFix": false
+    }
+  },
+  "documentation": {
+    "source": "shopify",
+    "includeDeprecated": false,
+    "caching": true,
+    "cacheTTL": 86400
+  },
+  "validation": {
+    "liquid": {
+      "enabled": true,
+      "rules": {
+        "strictTypes": true,
+        "requireFilters": false
+      }
+    },
+    "graphql": {
+      "enabled": true,
+      "schema": "admin-api"
+    },
+    "json": {
+      "enabled": true,
+      "strict": true
+    }
+  },
+  "customSkills": {
+    "enabled": true,
+    "directory": "./custom-skills",
+    "autoLoad": true
+  },
+  "storeExecution": {
+    "requireConfirmation": true,
+    "allowedOperations": ["read", "update"],
+    "logging": true,
+    "auditTrail": "./logs/audit.log"
+  },
+  "telemetry": {
+    "enabled": true,
+    "endpoint": "https://shopify.dev/mcp/usage",
+    "optOut": "${OPT_OUT_INSTRUMENTATION}"
+  },
+  "logging": {
+    "level": "info",
+    "file": "./logs/toolkit.log",
+    "console": true,
+    "maxSize": "10MB",
+    "maxFiles": 5
+  },
+  "security": {
+    "allowInsecureTransport": false,
+    "verifyCertificates": true,
+    "credentialStorage": "system"
+  },
+  "development": {
+    "mode": false,
+    "debugLogging": false,
+    "mockResponses": false
+  }
+}

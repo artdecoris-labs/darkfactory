@@ -97,6 +97,61 @@ routinely exceed both. This is the single most common reason a catalog migration
 halfway. The evaluation stage flags every offender; each one needs an explicit decision:
 split into several products, drop an option, or model it with a metafield.
 
+## Artists — the gap the design assumes
+
+The design handoff has artist cards, artist portraits and an Artists mega-menu, but
+there is no "artist" concept in Shopify and none in this mapping until now. On the live
+Odoo site the concept is real but **split across two models**:
+
+| What | Where it lives in Odoo | Evidence |
+| --- | --- | --- |
+| Artist's works | **brand** records (Theme Prime brands feature) | `/shop/all-brands`, `/shop/anne-mondy` |
+| Artist's story + portrait | **`website.page`** CMS pages | `/anne-mondy`, `/brass`, `/juan-de-lascurain` |
+
+Known artists: Anne Mondy, B.R.A.S.S., Juan de Lascurain. Confirm the full list against
+the brand model during reconnaissance — only Anne Mondy currently has a `/shop/` brand
+page in the sitemap, so the two sets may not line up.
+
+### Target model in Shopify
+
+Shopify has no native artist object. The right home is a **metaobject**, with a
+collection for browsing and a product metafield for the link:
+
+1. **Metaobject definition `artist`** — this is where the photo and story live.
+
+   | Field | Type |
+   | --- | --- |
+   | `name` | single_line_text |
+   | `portrait` | file_reference |
+   | `bio` | rich_text |
+   | `statement` | rich_text (optional) |
+   | `odoo_page_id` / `odoo_brand_id` | single_line_text — idempotency |
+
+   Give the definition the **online store** capability so each entry gets a real URL for
+   the story page.
+
+2. **Collection per artist** — `/collections/anne-mondy`, holding that artist's works.
+   This is what `/shop/<artist>` redirects to.
+
+3. **Product metafield `custom.artist`** — a metaobject reference pointing at the
+   artist. This is what lets a product page show "by Anne Mondy" and drives the artist
+   cards.
+
+### Extraction
+
+Add to the extractor: the brand model (confirm its technical name — likely
+`product.brand`) and `website.page` filtered to the artist slugs. Portraits come from
+the CMS page images, **not** from the resized `/web/image/` derivatives already pulled
+into the design system.
+
+### Redirects
+
+| Odoo | Shopify |
+| --- | --- |
+| `/<artist-slug>` | artist metaobject story URL |
+| `/shop/<artist-slug>` | `/collections/<artist-handle>` |
+| `/shop/all-brands` | an artists index page |
+
 ## Customers
 
 `res.partner` where `customer_rank > 0` → Shopify customer.
@@ -144,4 +199,8 @@ re-run or every redirect breaks.
 4. Approximate record counts per model (drives paging and runtime estimates).
 5. Does the catalog use `product.template.attribute` matrices anywhere near Shopify's
    100-variant / 3-option ceiling?
-6. Are there Odoo CMS pages (`website.page`) that need to become Shopify pages?
+6. ~~Are there Odoo CMS pages?~~ — yes. Beyond the artist pages: `/about-us`,
+   `/custom-art`, `/faq`, `/terms`, `/contactus`, plus a `/blog` with 2 posts and an
+   Odoo `/helpdesk` knowledge base. Decide which become Shopify pages, which become
+   blog articles, and which are dropped.
+7. Confirm the technical name of the brand model backing `/shop/all-brands`.

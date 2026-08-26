@@ -216,3 +216,31 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ---------------------------------------------------------------------------
+# Art Decoris project rules
+#
+# BOTH repositories are PUBLIC. Nothing below may ever be committed.
+# ---------------------------------------------------------------------------
+
+# Real store handles, theme IDs, API tokens
+secrets/*
+!secrets/README.md
+!secrets/*.example
+*.local.env
+*.local.json
+*.local.md
+
+# Shopify CLI local state
+.shopify/
+shopify.theme.toml
+
+# Migration staging data — contains real customer and order records
+staging/
+**/staging/
+reports/
+
+# Node
+node_modules/
+npm-debug.log*
+*.tsbuildinfo

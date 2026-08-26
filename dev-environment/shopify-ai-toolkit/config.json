@@ -40,14 +40,12 @@
       "strict": true
     }
   },
-  "customSkills": {
-    "enabled": true,
-    "directory": "./custom-skills",
-    "autoLoad": true
-  },
   "storeExecution": {
     "requireConfirmation": true,
-    "allowedOperations": ["read", "update"],
+    "allowedOperations": [
+      "read",
+      "update"
+    ],
     "logging": true,
     "auditTrail": "./logs/audit.log"
   },

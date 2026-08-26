@@ -19,9 +19,10 @@
       "Bash(uv --version)"
     ],
     "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
       "Bash(shopify theme publish:*)",
-      "Bash(shopify theme push:*)",
-      "Bash(git push:*)"
+      "Bash(shopify theme push:*)"
     ]
   }
 }

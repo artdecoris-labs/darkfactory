@@ -51,25 +51,32 @@ Dutch stays the primary locale; English and French added alongside. All content 
 | 10 | The three artist entries rewritten with **Dutch** in their own fields. They previously held English, which sat wrongly in the primary slot | `metaobjectUpdate` ×3 | re-run with the English values |
 | 11 | 18 translations registered — 3 artists × 2 locales × 3 fields | `translationsRegister` ×3 | `translationsRemove` |
 
-### Blocked — needs the admin UI
+### Resolved — locales had to be assigned to the **domain**
 
-**Alternate-locale URLs do not route.** `/en/pages/artists` and `/fr/pages/artists`
-return 404, and the storefront emits no `hreflang`. Publishing a locale is not enough:
-the **market** has to serve it.
+Alternate-locale URLs returned 404 even after the locales were enabled and published.
+Publishing a locale is not enough, and neither is adding it to the market: each language
+must be **assigned to a domain** in *Settings → Languages*. Done in admin, since the
+primary market reports `webPresences` as empty while `marketWebPresenceCreate` refuses
+with `domainId has already been taken` — the existing web presence is neither readable
+nor updatable through that API surface.
 
-The primary market *België* reports `webPresences` as **empty**, yet
-`marketWebPresenceCreate` refuses with `domainId has already been taken`. So a web
-presence exists but is not readable or updatable through this API surface.
+Verified afterwards, each serving its own language:
 
-**Do this in admin instead:** *Settings → Markets → België → Languages* → add English and
-French. Then re-check:
+| URL | |
+| --- | --- |
+| `/pages/artists` | 200 — Dutch |
+| `/en/pages/artists` | 200 — English |
+| `/fr/pages/artists` | 200 — French |
 
-```
-/en/pages/artists   expect 200
-/fr/pages/artists   expect 200
-```
+`hreflang` now advertises `nl`, `en`, `fr` and `x-default`. Individual story pages
+resolve in all three.
 
-Until then the translations are stored correctly and simply have no URL to appear on.
+> Admin lists English and French as **"No translations"**. That counter tracks theme and
+> store content, not metaobjects — the artist translations are registered and demonstrably
+> serving. Do not treat that label as a failure.
+
+> **The same trap will hit the catalog.** A product can carry perfect French copy and still
+> 404 if the language is not assigned to a domain. Publishing ≠ routing.
 
 ---
 

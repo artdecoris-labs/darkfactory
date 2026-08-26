@@ -1,0 +1,8 @@
+/* ArtDecoris webfonts.
+   SUBSTITUTION NOTICE: the live artdecoris.com theme (Odoo) does not expose
+   downloadable font binaries to us, so these are the closest Google Fonts
+   matches to the site's editorial serif headings + humanist sans body.
+   Replace with the real families/binaries when available. */
+/* Google Fonts @import removed: a published artifact cannot fetch a CDN.
+   Cormorant Garamond / Karla load from the design system in-app; published
+   builds fall back to the local serif / humanist sans in each font stack. */

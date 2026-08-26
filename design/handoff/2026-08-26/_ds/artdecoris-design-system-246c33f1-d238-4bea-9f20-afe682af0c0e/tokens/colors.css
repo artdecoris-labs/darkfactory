@@ -1,0 +1,21 @@
+:root{
+/* — Ink (text + structure) — */
+--ink-900:#12100E;--ink-800:#221F1C;--ink-700:#3A352F;--ink-600:#5A534A;--ink-500:#7C7469;--ink-400:#A39B8F;
+/* — Paper (surfaces) — */
+--paper-000:#FFFFFF;--paper-050:#FAF8F5;--paper-100:#F4F1EC;--paper-200:#EAE5DD;--paper-300:#DED7CC;
+/* — Brass (primary accent: gilded frame, gallery label) — */
+--brass-700:#7E6034;--brass-600:#9A7642;--brass-500:#B08D57;--brass-300:#D5BE93;--brass-100:#F0E7D6;
+/* — Artist accents (drawn from the collection's vibrant palette) — */
+--accent-coral:#D9553B;--accent-ochre:#E0A32E;--accent-jade:#2F6B4F;--accent-lapis:#2B4C6F;--accent-plum:#6B2F4B;
+/* — Semantic — */
+--success-600:#2F6B4F;--danger-600:#A3342B;--warning-600:#B27A16;--info-600:#34556B;
+
+/* — Semantic aliases — */
+--text-strong:var(--ink-900);--text-body:var(--ink-700);--text-muted:var(--ink-500);--text-faint:var(--ink-400);
+--text-inverse:var(--paper-050);--text-accent:var(--brass-600);--text-price:var(--ink-900);--text-sale:var(--danger-600);
+--surface-page:var(--paper-050);--surface-card:var(--paper-000);--surface-sunken:var(--paper-100);
+--surface-tile:var(--paper-200);--surface-inverse:var(--ink-900);--surface-accent:var(--brass-100);
+--border-hairline:#E4DFD7;--border-subtle:var(--paper-300);--border-strong:var(--ink-900);--border-accent:var(--brass-500);
+--overlay-scrim:rgba(18,16,14,.55);--overlay-veil:rgba(250,248,245,.82);
+--focus-ring:var(--brass-500);
+}

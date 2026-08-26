@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="ds/tokens/fonts.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Karla:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="ds/tokens/colors.css">
+<link rel="stylesheet" href="ds/tokens/typography.css">
+<link rel="stylesheet" href="ds/tokens/spacing.css">
+<link rel="stylesheet" href="ds/tokens/radius.css">
+<link rel="stylesheet" href="ds/tokens/elevation.css">
+<link rel="stylesheet" href="ds/tokens/motion.css">
+<link rel="stylesheet" href="ds/tokens/base.css">
+<link rel="stylesheet" href="ds/styles.css">
+<script src="_ds/artdecoris-design-system-246c33f1-d238-4bea-9f20-afe682af0c0e/_ds_bundle.js"></script>
+<meta name="ext-resource-dependency" content="assets/prod-bici.png" data-resource-id="prodBici">
+<meta name="ext-resource-dependency" content="assets/prod-flowers.png" data-resource-id="prodFlowers">
+<meta name="ext-resource-dependency" content="assets/prod-ojitos.png" data-resource-id="prodOjitos">
+<meta name="ext-resource-dependency" content="assets/prod-hearts.png" data-resource-id="prodHearts">
+<meta name="ext-resource-dependency" content="assets/prod-bici-xl.png" data-resource-id="prodBiciXl">
+<meta name="ext-resource-dependency" content="assets/prod-frame.png" data-resource-id="prodFrame">
+<meta name="ext-resource-dependency" content="assets/gallery-2.png" data-resource-id="gallery2">
+<meta name="ext-resource-dependency" content="assets/gallery-3.png" data-resource-id="gallery3">
+<meta name="ext-resource-dependency" content="assets/gallery-4.png" data-resource-id="gallery4">
+<meta name="ext-resource-dependency" content="assets/cat-wallart.png" data-resource-id="catWallart">
+<meta name="ext-resource-dependency" content="assets/cat-candles.png" data-resource-id="catCandles">
+<meta name="ext-resource-dependency" content="assets/cat-outdoor.png" data-resource-id="catOutdoor">
+<meta name="ext-resource-dependency" content="assets/artist-anne.png" data-resource-id="artistAnne">
+<meta name="ext-resource-dependency" content="assets/artist-brass.png" data-resource-id="artistBrass">
+<meta name="ext-resource-dependency" content="assets/artist-juan.png" data-resource-id="artistJuan">
+<meta name="ext-resource-dependency" content="assets/mega-shop.png" data-resource-id="megaShop">
+<meta name="ext-resource-dependency" content="assets/mega-artists.png" data-resource-id="megaArtists">
+<style>
+body{margin:0;background:#FAF8F5}
+a{color:#12100E;text-decoration:none}
+a:hover{color:#B08D57}
+.ad-facet summary::-webkit-details-marker{display:none}
+</style>
+</helmet>
+<template id="__bundler_thumbnail" data-bg-color="#FAF8F5">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#FAF8F5"></rect><rect x="120" y="90" width="160" height="120" fill="none" stroke="#B08D57" stroke-width="1.5"></rect><text x="200" y="158" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#12100E">ArtDecoris</text><text x="200" y="182" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="9" letter-spacing="4" fill="#7C7469">MADE IN ART</text></svg>
+</template>
+<div style="font-family:Karla,Helvetica,sans-serif;color:#3A352F;background:#FAF8F5;min-height:100vh;min-width:1280px">
+
+<div style="background:#12100E;color:#F4F1EC;display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:10px 40px;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase">
+<span style="justify-self:start;color:#DED7CC;white-space:nowrap">15-days money-back guarantee</span>
+<span style="justify-self:center;white-space:nowrap">{{ announcement }}</span>
+<span style="justify-self:end;color:#DED7CC;white-space:nowrap">Delivery 2–3 business days</span>
+</div>
+
+<header onMouseLeave="{{ closeMega }}" style="background:#FFFFFF;border-bottom:1px solid #E4DFD7;position:sticky;top:0;z-index:30">
+<div style="max-width:1280px;margin:0 auto;padding:0 40px;height:96px;display:flex;align-items:center;gap:48px">
+<a href="#" onClick="{{ goHome }}" style="flex:none;display:block"><img src="assets/logo.png" alt="Art Decoris" style="height:58px;width:auto;display:block"></a>
+<nav style="display:flex;flex-wrap:wrap;gap:8px 26px;flex:1 1 auto;min-width:0">
+<sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
+<button onClick="{{ item.go }}" onMouseEnter="{{ item.hover }}" style="background:none;border:none;padding:14px 0;cursor:pointer;font:inherit;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#3A352F;border-bottom:1px solid transparent;white-space:nowrap" style-hover="color:#12100E;border-bottom-color:#12100E">{{ item.label }}</button>
+</sc-for>
+</nav>
+<div style="display:flex;align-items:center;gap:22px;flex:none">
+<span style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#7C7469;white-space:nowrap">EN · NL · FR</span>
+<button style="background:none;border:none;padding:0;cursor:pointer;font:inherit;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#3A352F;white-space:nowrap" style-hover="color:#B08D57">Search</button>
+<button style="background:none;border:none;padding:0;cursor:pointer;font:inherit;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#3A352F" style-hover="color:#B08D57">Account</button>
+<button onClick="{{ openCart }}" style="display:flex;align-items:center;gap:8px;background:none;border:none;padding:0;cursor:pointer;font:inherit;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#12100E">Cart<span style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#12100E;color:#FAF8F5;display:inline-flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0">{{ cartCount }}</span></button>
+</div>
+</div>
+<sc-if value="{{ megaOpen }}" hint-placeholder-val="{{ false }}">
+<div style="border-top:1px solid #E4DFD7;background:#FFFFFF;box-shadow:0 24px 48px -28px rgba(18,16,14,.28)">
+<div style="max-width:1280px;margin:0 auto;padding:40px;display:grid;grid-template-columns:1fr 1fr 1fr 320px;gap:48px">
+<sc-for list="{{ megaColumns }}" as="col" hint-placeholder-count="3">
+<div style="display:grid;gap:14px;align-content:start">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7C7469">{{ col.title }}</span>
+<sc-for list="{{ col.links }}" as="link" hint-placeholder-count="4">
+<a href="#" onClick="{{ link.go }}" style="font-size:14px;line-height:1.5;color:#3A352F" style-hover="color:#B08D57">{{ link.label }}</a>
+</sc-for>
+</div>
+</sc-for>
+<a href="#" onClick="{{ goCollection }}" style="display:grid;gap:12px;align-content:start">
+<div style="aspect-ratio:4/3;overflow:hidden;background:#F4F1EC"><img src="{{ megaImage }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+<span style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:22px;color:#12100E">{{ megaPromoTitle }}</span>
+<span style="font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#B08D57">Shop the collection</span>
+</a>
+</div>
+</div>
+</sc-if>
+</header>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<main data-screen-label="Home">
+<section style="position:relative;height:660px;overflow:hidden;background:#EAE5DD">
+<img src="assets/hero-interior.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<span style="position:absolute;inset:0;background:linear-gradient(to top,rgba(18,16,14,.62) 0%,rgba(18,16,14,.34) 52%,rgba(18,16,14,.08) 100%)"></span>
+<div style="position:relative;max-width:1280px;margin:0 auto;padding:0 40px 72px;height:100%;display:grid;align-content:end;justify-items:start;gap:22px">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#DED7CC">Autumn edition · Limited runs</span>
+<h1 style="margin:0;max-width:22ch;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:72px;line-height:1.02;letter-spacing:-.02em;color:#FFFFFF;text-wrap:pretty">An exclusive interior piece by an artist in your home?</h1>
+<p style="margin:0;max-width:52ch;font-size:16px;line-height:1.7;color:#F4F1EC">Collections carrying designs by contemporary artists, printed in-house in Belgium. Every item is a work of art, not decoration.</p>
+<div style="display:flex;gap:14px;padding-top:6px">
+<x-import component-from-global-scope="ArtDecorisDesignSystem_246c33.Button" variant="brass" size="lg" onClick="{{ goCollection }}" hint-size="200px,56px">Shop our products</x-import>
+<x-import component-from-global-scope="ArtDecorisDesignSystem_246c33.Button" variant="primary" size="lg" hint-size="180px,56px">Meet the artists</x-import>
+</div>
+</div>
+</section>
+
+<section style="background:#FFFFFF;border-bottom:1px solid #E4DFD7">
+<div style="max-width:1280px;margin:0 auto;padding:44px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:40px">
+<sc-for list="{{ valueProps }}" as="vp" hint-placeholder-count="4">
+<div style="display:grid;gap:14px;align-content:start">
+<span style="width:32px;height:1px;background:#B08D57"></span>
+<div style="display:grid;gap:5px">
+<span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#12100E">{{ vp.title }}</span>
+<span style="font-size:13px;line-height:1.6;color:#7C7469">{{ vp.body }}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1280px;margin:0 auto;padding:112px 40px 0">
+<div style="display:grid;justify-items:center;gap:16px;text-align:center">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7C7469">Our collection</span>
+<h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:44px;line-height:1.14;color:#12100E">Shop by category</h2>
+<span style="width:56px;height:1px;background:#B08D57"></span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px">
+<sc-for list="{{ categories }}" as="cat" hint-placeholder-count="3">
+<a href="#" onClick="{{ cat.go }}" style="position:relative;display:block;aspect-ratio:3/4;overflow:hidden;background:#F4F1EC">
+<img src="{{ cat.image }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 420ms cubic-bezier(.16,.84,.44,1)" style-hover="transform:scale(1.035)">
+<span style="position:absolute;inset:0;background:linear-gradient(to top,rgba(18,16,14,.66) 0%,rgba(18,16,14,.16) 46%,rgba(18,16,14,0) 72%);pointer-events:none"></span>
+<span style="position:absolute;left:28px;right:28px;bottom:28px;display:grid;gap:8px;pointer-events:none">
+<span style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:30px;color:#FFFFFF">{{ cat.title }}</span>
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#DED7CC">{{ cat.count }}</span>
+</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1280px;margin:0 auto;padding:112px 40px 0">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px;padding-bottom:12px;border-bottom:1px solid #E4DFD7">
+<div style="display:grid;gap:10px">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7C7469">New this season</span>
+<h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:40px;line-height:1.14;color:#12100E">Limited editions, ready to ship</h2>
+</div>
+<x-import component-from-global-scope="ArtDecorisDesignSystem_246c33.Button" variant="link" onClick="{{ goCollection }}" hint-size="120px,20px">View all</x-import>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:36px">
+<sc-for list="{{ featured }}" as="p" hint-placeholder-count="4">
+<div style="background:#FFFFFF;box-shadow:0 0 0 1px #E4DFD7;transition:box-shadow 240ms cubic-bezier(.16,.84,.44,1)" style-hover="box-shadow:0 2px 4px rgba(18,16,14,.06),0 18px 44px -18px rgba(18,16,14,.22)">
+<a href="#" onClick="{{ p.open }}" style="position:relative;display:block;aspect-ratio:1/1;overflow:hidden;background:#F4F1EC">
+<img src="{{ p.image }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 420ms cubic-bezier(.16,.84,.44,1)" style-hover="transform:scale(1.035)">
+<sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
+<span style="position:absolute;top:14px;left:14px;padding:5px 10px;background:#F0E7D6;color:#7E6034;border:1px solid #D5BE93;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase">{{ p.badge }}</span>
+</sc-if>
+</a>
+<div style="padding:20px 18px 22px;display:grid;gap:8px;justify-items:center;text-align:center">
+<span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7C7469">{{ p.designer }}</span>
+<a href="#" onClick="{{ p.open }}" style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:19px;color:#12100E">{{ p.title }}</a>
+<span style="font-size:16px;font-weight:500;color:#12100E">{{ p.priceStr }}</span>
+<button onClick="{{ p.add }}" style="margin-top:8px;width:100%;padding:12px 0;cursor:pointer;border:1px solid #12100E;background:transparent;color:#12100E;font:inherit;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background 160ms linear,color 160ms linear" style-hover="background:#12100E;color:#FAF8F5">Add to cart</button>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="margin-top:112px;position:relative;height:560px;overflow:hidden;background:#EAE5DD">
+<img src="assets/custom-room.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<span style="position:absolute;inset:0;background:linear-gradient(to right,rgba(18,16,14,.72) 0%,rgba(18,16,14,.42) 46%,rgba(18,16,14,.06) 100%)"></span>
+<div style="position:relative;max-width:1280px;margin:0 auto;padding:0 40px;height:100%;display:grid;align-content:center;justify-items:start;gap:20px">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#DED7CC">Custom made</span>
+<h2 style="margin:0;max-width:20ch;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:52px;line-height:1.06;color:#FFFFFF;text-wrap:pretty">Do you want exclusivity with a custom-made art work?</h2>
+<p style="margin:0;max-width:46ch;font-size:16px;line-height:1.7;color:#F4F1EC">On-site consultation, a design proposal by one of our artists, then creation — for murals, objects and lobbies.</p>
+<x-import component-from-global-scope="ArtDecorisDesignSystem_246c33.Button" variant="brass" size="lg" hint-size="220px,56px">Book a consultation</x-import>
+</div>
+</section>
+
+<section style="max-width:1280px;margin:0 auto;padding:112px 40px 0">
+<div style="display:grid;justify-items:center;gap:16px;text-align:center">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7C7469">Shop by artist</span>
+<h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:44px;line-height:1.14;color:#12100E">The hands behind the collections</h2>
+<span style="width:56px;height:1px;background:#B08D57"></span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:52px">
+<sc-for list="{{ artists }}" as="a" hint-placeholder-count="3">
+<div style="display:grid;gap:20px">
+<a href="#" onClick="{{ goCollection }}" style="display:block;aspect-ratio:4/5;overflow:hidden;background:#F4F1EC">
+<img src="{{ a.image }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 420ms cubic-bezier(.16,.84,.44,1)" style-hover="transform:scale(1.035)">
+</a>
+<div style="display:grid;gap:10px">
+<span style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:26px;color:#12100E">{{ a.name }}</span>
+<p style="margin:0;font-size:14px;line-height:1.7;color:#7C7469;max-width:38ch">{{ a.bio }}</p>
+<a href="#" onClick="{{ goCollection }}" style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#B08D57">Shop {{ a.name }}</a>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1280px;margin:0 auto;padding:112px 40px 0">
+<div style="display:grid;grid-template-columns:1.15fr 1fr;gap:0;background:#F4F1EC">
+<div style="aspect-ratio:16/11;overflow:hidden"><img src="assets/collab-deferla.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+<div style="padding:64px 56px;display:grid;align-content:center;gap:18px">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7C7469">In your space</span>
+<h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:40px;line-height:1.1;color:#12100E">De Ferla × B.R.A.S.S.</h2>
+<p style="margin:0;max-width:44ch;font-size:15px;line-height:1.72;color:#3A352F">Our artists have worked with Nike, LVMH, Ferrari, Gucci and Chanel. The same hands sign the pieces you can hang at home — in limited runs, on state-of-the-art digital print.</p>
+<div style="display:flex;gap:14px;padding-top:8px">
+<x-import component-from-global-scope="ArtDecorisDesignSystem_246c33.Button" variant="secondary" onClick="{{ goCollection }}" hint-size="180px,48px">Shop the edition</x-import>
+<x-import component-from-global-scope="ArtDecorisDesignSystem_246c33.Button" variant="link" hint-size="150px,20px">Download catalogue</x-import>
+</div>
+</div>
+</div>
+</section>
+</main>
+</sc-if>
+
+<sc-if value="{{ isCollection }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="Collection">
+<section style="position:relative;height:340px;overflow:hidden;background:#EAE5DD">
+<img src="assets/banner-wallart.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<span style="position:absolute;inset:0;background:linear-gradient(to top,rgba(18,16,14,.7) 0%,rgba(18,16,14,.42) 55%,rgba(18,16,14,.12) 100%)"></span>
+<div style="position:relative;max-width:1280px;margin:0 auto;padding:0 40px 44px;height:100%;display:grid;align-content:end;gap:14px">
+<div style="display:flex;gap:8px;font-size:12px;color:#DED7CC"><a href="#" onClick="{{ goHome }}" style="color:#DED7CC">Home</a><span>/</span><span>Collections</span><span style="color:#FFFFFF">/ Wall art</span></div>
+<h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:56px;line-height:1.04;letter-spacing:-.015em;color:#FFFFFF">Wall art</h1>
+<p style="margin:0;max-width:58ch;font-size:15px;line-height:1.72;color:#F4F1EC">Exclusive plexiglass wall decorations carrying designs by our contemporary artists. Available in three sizes.</p>
+</div>
+</section>
+<div style="max-width:1280px;margin:0 auto;padding:32px 40px 112px;display:grid;grid-template-columns:248px 1fr;gap:56px;align-items:start">
+<aside style="display:grid;gap:8px;position:sticky;top:136px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:12px;border-bottom:1px solid #E4DFD7">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#12100E">Filter</span>
+<button onClick="{{ clearFacets }}" style="background:none;border:none;padding:0;cursor:pointer;font:inherit;font-size:12px;color:#7C7469;border-bottom:1px solid #DED7CC">Clear all</button>
+</div>
+<details class="ad-facet" open="" style="border-bottom:1px solid #E4DFD7;padding:14px 0">
+<summary style="cursor:pointer;list-style:none;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#12100E">Artist</summary>
+<div style="display:grid;gap:10px;padding-top:14px;font-size:14px">
+<sc-for list="{{ artistFacets }}" as="f" hint-placeholder-count="3">
+<label style="display:flex;gap:10px;align-items:center;cursor:pointer"><input type="checkbox" checked="{{ f.on }}" onChange="{{ f.toggle }}" style="accent-color:#12100E">{{ f.label }}</label>
+</sc-for>
+</div>
+</details>
+<details class="ad-facet" open="" style="border-bottom:1px solid #E4DFD7;padding:14px 0">
+<summary style="cursor:pointer;list-style:none;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#12100E">Size</summary>
+<div style="display:flex;flex-wrap:wrap;gap:8px;padding-top:14px">
+<span style="padding:8px 12px;border:1px solid #DED7CC;font-size:13px">40 × 60 cm</span>
+<span style="padding:8px 12px;border:1px solid #DED7CC;font-size:13px">60 × 90 cm</span>
+<span style="padding:8px 12px;border:1px solid #DED7CC;font-size:13px">80 × 120 cm</span>
+</div>
+</details>
+<details class="ad-facet" open="" style="border-bottom:1px solid #E4DFD7;padding:14px 0">
+<summary style="cursor:pointer;list-style:none;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#12100E">Availability</summary>
+<div style="display:grid;gap:10px;padding-top:14px;font-size:14px">
+<label style="display:flex;gap:10px;align-items:center;cursor:pointer"><input type="checkbox" style="accent-color:#12100E">In stock</label>
+<label style="display:flex;gap:10px;align-items:center;cursor:pointer"><input type="checkbox" style="accent-color:#12100E">Limited edition</label>
+</div>
+</details>
+<details class="ad-facet" style="border-bottom:1px solid #E4DFD7;padding:14px 0">
+<summary style="cursor:pointer;list-style:none;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#12100E">Price</summary>
+<div style="display:flex;gap:10px;padding-top:14px">
+<input placeholder="From €" style="width:100%;padding:10px;border:1px solid #DED7CC;font:inherit;font-size:13px">
+<input placeholder="To €" style="width:100%;padding:10px;border:1px solid #DED7CC;font:inherit;font-size:13px">
+</div>
+</details>
+</aside>
+<div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding-bottom:16px;border-bottom:1px solid #E4DFD7">
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+<span style="font-size:13px;color:#7C7469;white-space:nowrap">{{ productCount }} products</span>
+<sc-for list="{{ activeChips }}" as="chip" hint-placeholder-count="1">
+<button onClick="{{ chip.remove }}" style="display:inline-flex;gap:8px;align-items:center;padding:6px 10px;background:#F4F1EC;border:none;cursor:pointer;font:inherit;font-size:12px;color:#3A352F">{{ chip.label }}<span style="color:#7C7469">×</span></button>
+</sc-for>
+</div>
+<label style="display:flex;gap:10px;align-items:center;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7C7469">Sort by
+<select onChange="{{ setSort }}" style="padding:9px 12px;border:1px solid #DED7CC;background:#FFFFFF;font:inherit;font-size:13px;letter-spacing:0;text-transform:none;color:#12100E">
+<option>Featured</option><option>Best selling</option><option>Price, low to high</option><option>Price, high to low</option><option>Date, new to old</option>
+</select>
+</label>
+</div>
+<div style="display:grid;grid-template-columns:{{ gridTemplate }};gap:32px;margin-top:28px">
+<sc-for list="{{ collectionProducts }}" as="p" hint-placeholder-count="6">
+<div style="background:#FFFFFF;box-shadow:0 0 0 1px #E4DFD7;transition:box-shadow 240ms cubic-bezier(.16,.84,.44,1)" style-hover="box-shadow:0 2px 4px rgba(18,16,14,.06),0 18px 44px -18px rgba(18,16,14,.22)">
+<a href="#" onClick="{{ p.open }}" style="position:relative;display:block;aspect-ratio:1/1;overflow:hidden;background:#F4F1EC">
+<img src="{{ p.image }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 420ms cubic-bezier(.16,.84,.44,1)" style-hover="transform:scale(1.035)">
+<sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
+<span style="position:absolute;top:14px;left:14px;padding:5px 10px;background:#F0E7D6;color:#7E6034;border:1px solid #D5BE93;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase">{{ p.badge }}</span>
+</sc-if>
+<sc-if value="{{ p.soldOut }}" hint-placeholder-val="{{ false }}">
+<span style="position:absolute;top:14px;right:14px;padding:5px 10px;background:rgba(250,248,245,.86);color:#7C7469;border:1px solid #DED7CC;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase">Sold out</span>
+</sc-if>
+</a>
+<div style="padding:20px 18px 22px;display:grid;gap:8px;justify-items:center;text-align:center">
+<span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7C7469">{{ p.designer }}</span>
+<a href="#" onClick="{{ p.open }}" style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:19px;color:#12100E">{{ p.title }}</a>
+<div style="display:flex;gap:12px;align-items:baseline">
+<span style="font-size:16px;font-weight:500;color:#12100E">{{ p.priceStr }}</span>
+<sc-if value="{{ p.compareStr }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:14px;color:#7C7469;text-decoration:line-through">{{ p.compareStr }}</span>
+</sc-if>
+</div>
+<button onClick="{{ p.add }}" style="margin-top:8px;width:100%;padding:12px 0;cursor:pointer;border:1px solid #12100E;background:transparent;color:#12100E;font:inherit;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background 160ms linear,color 160ms linear" style-hover="background:#12100E;color:#FAF8F5">{{ p.cta }}</button>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:18px;margin-top:64px">
+<span style="font-size:13px;color:#7C7469">Showing {{ productCount }} of 12 products</span>
+<x-import component-from-global-scope="ArtDecorisDesignSystem_246c33.Button" variant="secondary" size="lg" hint-size="220px,52px">Load more</x-import>
+</div>
+</div>
+</div>
+</main>
+</sc-if>
+
+<sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="Product">
+<div style="max-width:1280px;margin:0 auto;padding:28px 40px 0;display:flex;gap:8px;font-size:12px;color:#7C7469">
+<a href="#" onClick="{{ goHome }}" style="color:#7C7469">Home</a><span>/</span><a href="#" onClick="{{ goCollection }}" style="color:#7C7469">Wall art</a><span>/</span><span style="color:#12100E">{{ current.title }}</span>
+</div>
+<div style="max-width:1280px;margin:0 auto;padding:28px 40px 112px;display:grid;grid-template-columns:1fr 470px;gap:64px;align-items:start">
+<div style="display:grid;gap:16px">
+<div style="aspect-ratio:1/1;overflow:hidden;background:#F4F1EC"><img src="{{ heroImage }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+<sc-for list="{{ gallery }}" as="g" hint-placeholder-count="4">
+<button onClick="{{ g.select }}" style="padding:0;border:1px solid {{ g.border }};background:none;cursor:pointer;aspect-ratio:1/1;overflow:hidden">
+<img src="{{ g.src }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+</button>
+</sc-for>
+</div>
+</div>
+<div style="display:grid;gap:24px;position:sticky;top:136px">
+<div style="display:grid;gap:10px">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7C7469">{{ current.designer }}</span>
+<h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:44px;line-height:1.08;color:#12100E">{{ current.title }}</h1>
+<div style="display:flex;gap:14px;align-items:baseline">
+<span style="font-size:24px;font-weight:500;color:#12100E">{{ selectedPriceStr }}</span>
+<span style="font-size:13px;color:#7C7469">Incl. VAT · Limited edition of 50</span>
+</div>
+</div>
+<p style="margin:0;max-width:52ch;font-size:15px;line-height:1.72;color:#3A352F">Take your interior to the next level with this plexiglass work of art. Printed in-house on 5 mm plexiglass with a brushed aluminium mount, signed by the artist and numbered.</p>
+<div style="display:grid;gap:12px">
+<span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#12100E">Size</span>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<sc-for list="{{ sizes }}" as="s" hint-placeholder-count="3">
+<button onClick="{{ s.select }}" style="padding:13px 18px;cursor:pointer;font:inherit;font-size:13px;background:{{ s.bg }};color:{{ s.color }};border:1px solid {{ s.border }}">{{ s.label }}</button>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;gap:14px;align-items:stretch">
+<div style="display:flex;align-items:center;border:1px solid #DED7CC;background:#FFFFFF">
+<button onClick="{{ decQty }}" style="width:46px;height:54px;border:none;background:none;cursor:pointer;font:inherit;font-size:18px;color:#12100E">−</button>
+<span style="width:36px;text-align:center;font-size:15px;color:#12100E">{{ qty }}</span>
+<button onClick="{{ incQty }}" style="width:46px;height:54px;border:none;background:none;cursor:pointer;font:inherit;font-size:18px;color:#12100E">+</button>
+</div>
+<x-import component-from-global-scope="ArtDecorisDesignSystem_246c33.Button" variant="primary" size="lg" full-width="{{ true }}" onClick="{{ addCurrent }}" hint-size="100%,54px">Add to cart</x-import>
+</div>
+<div style="display:grid;gap:8px;padding:18px 0;border-top:1px solid #E4DFD7;border-bottom:1px solid #E4DFD7;font-size:13px;color:#7C7469">
+<span>In stock — dispatched from Antwerp within 24 h</span>
+<span>15-days money-back guarantee · Delivery 2–3 business days</span>
+<span>Signed certificate of authenticity included</span>
+</div>
+<div style="display:grid;gap:0">
+<div style="display:flex;gap:28px;border-bottom:1px solid #E4DFD7">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+<button onClick="{{ t.select }}" style="padding:0 0 12px;background:none;border:none;border-bottom:2px solid {{ t.border }};cursor:pointer;font:inherit;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:{{ t.color }}">{{ t.label }}</button>
+</sc-for>
+</div>
+<div style="padding-top:20px;display:grid;gap:10px;font-size:14px;line-height:1.7;color:#3A352F">
+<sc-for list="{{ tabRows }}" as="row" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:150px 1fr;gap:16px;padding:10px 0;border-bottom:1px solid #E4DFD7">
+<span style="color:#7C7469">{{ row.k }}</span><span>{{ row.v }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+<section style="background:#F4F1EC;padding:96px 0">
+<div style="max-width:1280px;margin:0 auto;padding:0 40px">
+<div style="display:grid;justify-items:center;gap:14px;text-align:center;margin-bottom:44px">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7C7469">Complete the experience</span>
+<h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:38px;color:#12100E">Pairs beautifully with</h2>
+<span style="width:56px;height:1px;background:#B08D57"></span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px">
+<sc-for list="{{ related }}" as="p" hint-placeholder-count="4">
+<div style="background:#FFFFFF;box-shadow:0 0 0 1px #E4DFD7;transition:box-shadow 240ms cubic-bezier(.16,.84,.44,1)" style-hover="box-shadow:0 2px 4px rgba(18,16,14,.06),0 18px 44px -18px rgba(18,16,14,.22)">
+<a href="#" onClick="{{ p.open }}" style="display:block;aspect-ratio:1/1;overflow:hidden;background:#F4F1EC">
+<img src="{{ p.image }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 420ms cubic-bezier(.16,.84,.44,1)" style-hover="transform:scale(1.035)">
+</a>
+<div style="padding:20px 18px 22px;display:grid;gap:8px;justify-items:center;text-align:center">
+<span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7C7469">{{ p.designer }}</span>
+<a href="#" onClick="{{ p.open }}" style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:19px;color:#12100E">{{ p.title }}</a>
+<span style="font-size:16px;font-weight:500;color:#12100E">{{ p.priceStr }}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+</main>
+</sc-if>
+
+<section style="background:#FFFFFF;border-top:1px solid #E4DFD7;padding:88px 0">
+<div style="max-width:760px;margin:0 auto;padding:0 40px;text-align:center;display:grid;gap:18px;justify-items:center">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7C7469">Newsletter</span>
+<h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:38px;line-height:1.22;color:#12100E">Always first</h2>
+<p style="margin:0;font-size:15px;line-height:1.72;color:#3A352F">Be the first to find out all the latest news, products and trends.</p>
+<div style="display:flex;gap:8px;width:100%;max-width:440px">
+<input placeholder="you@example.com" style="flex:1;padding:14px;border:1px solid #DED7CC;background:#FFFFFF;font:inherit;font-size:14px">
+<x-import component-from-global-scope="ArtDecorisDesignSystem_246c33.Button" variant="brass" hint-size="140px,50px">Subscribe</x-import>
+</div>
+</div>
+</section>
+
+<footer style="background:#12100E;color:#F4F1EC;padding:80px 0 28px">
+<div style="max-width:1280px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:56px">
+<div style="display:grid;gap:14px;align-content:start">
+<img src="assets/logo.png" alt="Art Decoris" style="height:72px;width:auto;filter:invert(1)">
+<p style="margin:0;font-size:13px;line-height:1.72;color:#DED7CC;max-width:34ch">Interior decoration collections with designs by contemporary top artists. Every item is more than decoration — it is a true work of art.</p>
+</div>
+<div style="display:grid;gap:10px;align-content:start">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#DED7CC">Shop</span>
+<a href="#" onClick="{{ goCollection }}" style="font-size:13px;color:#F4F1EC">Wall art</a>
+<a href="#" style="font-size:13px;color:#F4F1EC">Candles</a>
+<a href="#" style="font-size:13px;color:#F4F1EC">Diffusers</a>
+<a href="#" style="font-size:13px;color:#F4F1EC">Cushions</a>
+<a href="#" style="font-size:13px;color:#F4F1EC">Bean bags</a>
+</div>
+<div style="display:grid;gap:10px;align-content:start">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#DED7CC">Help</span>
+<a href="#" style="font-size:13px;color:#F4F1EC">Shipping &amp; delivery</a>
+<a href="#" style="font-size:13px;color:#F4F1EC">Refunds &amp; replacements</a>
+<a href="#" style="font-size:13px;color:#F4F1EC">Terms &amp; conditions</a>
+<a href="#" style="font-size:13px;color:#F4F1EC">Privacy statement</a>
+<a href="#" style="font-size:13px;color:#F4F1EC">FAQ</a>
+</div>
+<div style="display:grid;gap:10px;align-content:start">
+<span style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#DED7CC">Contact</span>
+<span style="font-size:13px;color:#F4F1EC">info@artdecoris.com</span>
+<span style="font-size:13px;color:#F4F1EC">+32 3 361 63 80</span>
+<a href="#" style="font-size:13px;color:#DED7CC">B2B portal</a>
+</div>
+</div>
+<div style="max-width:1280px;margin:36px auto 0;padding:20px 40px 0;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;align-items:center">
+<span style="font-size:12px;color:#DED7CC">Copyright © ArtDecoris — Made In Art · Powered by Shopify</span>
+<div style="display:flex;gap:8px">
+<span style="padding:5px 9px;border:1px solid rgba(255,255,255,.22);font-size:10px;letter-spacing:.1em;color:#DED7CC">VISA</span>
+<span style="padding:5px 9px;border:1px solid rgba(255,255,255,.22);font-size:10px;letter-spacing:.1em;color:#DED7CC">MC</span>
+<span style="padding:5px 9px;border:1px solid rgba(255,255,255,.22);font-size:10px;letter-spacing:.1em;color:#DED7CC">AMEX</span>
+<span style="padding:5px 9px;border:1px solid rgba(255,255,255,.22);font-size:10px;letter-spacing:.1em;color:#DED7CC">IDEAL</span>
+<span style="padding:5px 9px;border:1px solid rgba(255,255,255,.22);font-size:10px;letter-spacing:.1em;color:#DED7CC">BANCONTACT</span>
+</div>
+</div>
+</footer>
+
+<sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:50">
+<div onClick="{{ closeCart }}" style="position:absolute;inset:0;background:rgba(18,16,14,.55)"></div>
+<aside style="position:absolute;top:0;right:0;bottom:0;width:440px;background:#FFFFFF;box-shadow:0 24px 64px -20px rgba(18,16,14,.32);display:flex;flex-direction:column">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:24px;border-bottom:1px solid #E4DFD7">
+<span style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:26px;color:#12100E">Your cart</span>
+<button onClick="{{ closeCart }}" style="background:none;border:none;cursor:pointer;font:inherit;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7C7469">Close</button>
+</div>
+<div style="flex:1;overflow:auto;padding:24px;display:grid;gap:22px;align-content:start">
+<sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;gap:16px;justify-items:start">
+<p style="margin:0;font-size:14px;line-height:1.7;color:#7C7469">Your cart is empty. Not sure where to start?</p>
+<x-import component-from-global-scope="ArtDecorisDesignSystem_246c33.Button" variant="secondary" onClick="{{ goCollection }}" hint-size="200px,48px">Shop wall art</x-import>
+</div>
+</sc-if>
+<sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="0">
+<div style="display:grid;grid-template-columns:76px 1fr auto;gap:16px;align-items:start">
+<img src="{{ l.image }}" alt="" style="width:76px;aspect-ratio:1;object-fit:cover">
+<div style="display:grid;gap:4px">
+<span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7C7469">{{ l.designer }}</span>
+<span style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#12100E">{{ l.title }}</span>
+<span style="font-size:13px;color:#7C7469">{{ l.size }} · Qty {{ l.qty }}</span>
+<button onClick="{{ l.remove }}" style="justify-self:start;background:none;border:none;padding:0;cursor:pointer;font:inherit;font-size:12px;color:#7C7469;border-bottom:1px solid #DED7CC">Remove</button>
+</div>
+<span style="font-size:15px;font-weight:500;color:#12100E">{{ l.lineTotal }}</span>
+</div>
+</sc-for>
+</div>
+<div style="padding:24px;border-top:1px solid #E4DFD7;display:grid;gap:14px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#12100E">Subtotal</span><span style="font-size:18px;font-weight:500;color:#12100E">{{ cartTotal }}</span></div>
+<span style="font-size:12px;color:#7C7469">Taxes and shipping calculated at checkout.</span>
+<x-import component-from-global-scope="ArtDecorisDesignSystem_246c33.Button" variant="primary" size="lg" full-width="{{ true }}" hint-size="100%,54px">Checkout</x-import>
+</div>
+</aside>
+</div>
+</sc-if>
+
+<div style="position:fixed;left:24px;bottom:24px;z-index:40;display:flex;align-items:center;gap:4px;padding:6px;background:rgba(18,16,14,.92);box-shadow:0 12px 32px -12px rgba(18,16,14,.5)">
+<span style="padding:0 10px;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#7C7469">Prototype</span>
+<sc-for list="{{ screenTabs }}" as="s" hint-placeholder-count="3">
+<button onClick="{{ s.select }}" style="padding:8px 14px;border:none;cursor:pointer;font:inherit;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:{{ s.bg }};color:{{ s.color }}">{{ s.label }}</button>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1000},&quot;announcement&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Autumn edition — limited runs, signed by the artist&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;gridColumns&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:3,&quot;min&quot;:2,&quot;max&quot;:4,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Collection&quot;}}">
+/* Local placeholder assets. Bundled builds serve them from window.__resources
+   (declared as ext-resource-dependency metas in the helmet). */
+const R = (id, path) => (typeof window !== 'undefined' && window.__resources && window.__resources[id]) || path;
+const FALLBACK = {
+  prodBici:R('prodBici','assets/prod-bici.png'),
+  prodFlowers:R('prodFlowers','assets/prod-flowers.png'),
+  prodOjitos:R('prodOjitos','assets/prod-ojitos.png'),
+  prodHearts:R('prodHearts','assets/prod-hearts.png'),
+  prodBiciXl:R('prodBiciXl','assets/prod-bici-xl.png'),
+  prodFrame:R('prodFrame','assets/prod-frame.png'),
+  gallery2:R('gallery2','assets/gallery-2.png'),
+  gallery3:R('gallery3','assets/gallery-3.png'),
+  gallery4:R('gallery4','assets/gallery-4.png'),
+  catWallart:R('catWallart','assets/cat-wallart.png'),
+  catCandles:R('catCandles','assets/cat-candles.png'),
+  catOutdoor:R('catOutdoor','assets/cat-outdoor.png'),
+  artistAnne:R('artistAnne','assets/artist-anne.png'),
+  artistBrass:R('artistBrass','assets/artist-brass.png'),
+  artistJuan:R('artistJuan','assets/artist-juan.png'),
+  megaShop:R('megaShop','assets/mega-shop.png'),
+  megaArtists:R('megaArtists','assets/mega-artists.png'),
+  heroInterior:R('heroInterior','assets/hero-interior.png'),
+  customRoom:R('customRoom','assets/custom-room.png'),
+  collabDeferla:R('collabDeferla','assets/collab-deferla.png'),
+  bannerWallart:R('bannerWallart','assets/banner-wallart.png')
+};
+/* Live ArtDecoris media. Where the host cannot reach it (offline / published bundle)
+   the matching local placeholder in FALLBACK takes over via onImgError. */
+const LIVE = 'https://www.artdecoris.com/web/image/';
+const ASSET = {
+  prodBici:LIVE+'product.template/166/image_1024?unique=2c7de7f',
+  prodFlowers:LIVE+'product.template/165/image_1024',
+  prodOjitos:LIVE+'product.template/168/image_1024',
+  prodHearts:LIVE+'product.template/164/image_1024',
+  prodBiciXl:LIVE+'product.image/526/image_1024/C%20005c%20Plexi%20Bike%20XL.webp?unique=0b831b3',
+  prodFrame:LIVE+'product.image/208/image_1024/Frame%20vertical%20open-min-min.webp?unique=0b831b3',
+  gallery2:LIVE+'product.image/526/image_1024/C%20005c%20Plexi%20Bike%20XL.webp?unique=0b831b3',
+  gallery3:LIVE+'product.image/134/image_1024/C%20005d%20Plexi%20Bike%203x-min.webp?unique=0b831b3',
+  gallery4:LIVE+'product.image/222/image_1024/C%20014%20achterkant%20small.webp?unique=0b831b3',
+  catWallart:LIVE+'8802-f0c5ec98/56.webp',
+  catCandles:LIVE+'8801-1f1fd0be/52.webp',
+  catOutdoor:LIVE+'8804-81d10168/53.webp',
+  artistAnne:LIVE+'8100-bafd4117/6.webp',
+  artistBrass:LIVE+'8104-240d8339/7.webp',
+  artistJuan:LIVE+'8264-4b330eb6/images.webp',
+  megaShop:LIVE+'8801-1f1fd0be/52.webp',
+  megaArtists:LIVE+'8092-e19f4aed/Deferla%20x%20Brass-6.webp',
+  heroInterior:LIVE+'8244-0b2df0eb/ARTDECORIS-37.webp',
+  customRoom:LIVE+'7221-d715be84/358-DSC02192-min.jpg',
+  collabDeferla:LIVE+'8092-e19f4aed/Deferla%20x%20Brass-6.webp',
+  bannerWallart:LIVE+'8802-f0c5ec98/56.webp'
+};
+const euro = v => new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}).format(v)+'\u00A0\u20AC';
+
+const CATALOG = [
+  {id:'bici',title:'Wall Decoration Bici',designer:'Juan de Lascurain',amount:98.35,compareAt:119,badge:'Limited edition',img:'prodBici'},
+  {id:'flowers',title:'Wall Decoration Flowers',designer:'Juan de Lascurain',amount:98.35,img:'prodFlowers'},
+  {id:'ojitos',title:'Wall Decoration Ojitos',designer:'Juan de Lascurain',amount:98.35,img:'prodOjitos'},
+  {id:'hearts',title:'Wall Decoration Hearts',designer:'Anne Mondy',amount:98.35,soldOut:true,img:'prodHearts'},
+  {id:'bici-xl',title:'Plexi Edition Bici XL',designer:'Juan de Lascurain',amount:164.50,badge:'New',img:'prodBiciXl'},
+  {id:'frame',title:'Framed Edition Vertical',designer:'B.R.A.S.S.',amount:212.00,compareAt:249,img:'prodFrame'}
+];
+
+const GALLERY = ['prodBici','gallery2','gallery3','gallery4'];
+
+const SIZES = [
+  {label:'40 × 60 cm',delta:0},
+  {label:'60 × 90 cm',delta:52.15},
+  {label:'80 × 120 cm',delta:118.65}
+];
+
+const TABS = ['Description','Specifications','Shipping & returns'];
+const TAB_ROWS = {
+  'Description':[
+    {k:'The piece',v:'A contemporary design printed in-house on 5 mm plexiglass, mounted on brushed aluminium.'},
+    {k:'The artist',v:'Signed and numbered by the artist; each run is capped at 50 pieces.'},
+    {k:'In your room',v:'An eye-catcher above a sideboard, in a hallway or as a trio on a long wall.'},
+    {k:'Complete it',v:'Pair with a matching candle or diffuser from the same edition.'}
+  ],
+  'Specifications':[
+    {k:'Material',v:'Plexiglass 5 mm · brushed aluminium mount'},
+    {k:'Sizes',v:'40 × 60 · 60 × 90 · 80 × 120 cm'},
+    {k:'Printing',v:'State-of-the-art digital print, in-house'},
+    {k:'Edition',v:'Limited to 50, signed and numbered'},
+    {k:'Origin',v:'Made in Belgium'}
+  ],
+  'Shipping & returns':[
+    {k:'Dispatch',v:'Within 24 h from Antwerp'},
+    {k:'Delivery',v:'2–3 business days (Benelux), 4–6 days EU'},
+    {k:'Returns',v:'15-days money-back guarantee'},
+    {k:'Packaging',v:'Custom crate, insured transport'}
+  ]
+};
+
+const MEGA = {
+  Shop:{
+    columns:[
+      {title:'Home deco',links:['Wall art','Candles','Diffusers','Cushions indoor','Lighting']},
+      {title:'Outdoor deco',links:['Beanbags','Cushions outdoor']},
+      {title:'Featured',links:['New arrivals','Limited editions','Back in stock','Gift card']}
+    ],
+    promo:'Autumn edition',
+    img:'megaShop'
+  },
+  Artists:{
+    columns:[
+      {title:'Shop by artist',links:['Anne Mondy','B.R.A.S.S.','Juan de Lascurain']},
+      {title:'Collaborations',links:['De Ferla × B.R.A.S.S.','Brand commissions']},
+      {title:'Read',links:['Studio visits','How we print','The journal']}
+    ],
+    promo:'De Ferla × B.R.A.S.S.',
+    img:'megaArtists'
+  }
+};
+
+class Component extends DCLogic {
+  state = {
+    screen:'home', mega:null, cartOpen:false, lines:[], live:null,
+    facets:{'Juan de Lascurain':false,'Anne Mondy':false,'B.R.A.S.S.':false},
+    sort:'Featured', galleryIndex:0, sizeIndex:0, qty:1, tab:'Description'
+  };
+
+  componentDidMount(){
+    /* Start on the vendored placeholders, then quietly upgrade to the live
+       ArtDecoris media for any URL this host can actually reach. */
+    const found = {};
+    let pending = Object.keys(ASSET).length;
+    const settle = () => { if(--pending === 0 && Object.keys(found).length) this.setState({live:found}); };
+    Object.keys(ASSET).forEach(key => {
+      const probe = new Image();
+      probe.onload = () => { found[key] = ASSET[key]; settle(); };
+      probe.onerror = settle;
+      probe.src = ASSET[key];
+    });
+  }
+
+  swapStatic(key, url){
+    const local = FALLBACK[key];
+    if(!local || !this.staticKeys[key]) return;
+    document.querySelectorAll('img').forEach(img => {
+      if(img.getAttribute('src') === local) img.setAttribute('src', url);
+    });
+  }
+
+  /* A re-render restores the authored static src, so re-apply after every update. */
+  componentDidUpdate(){ this.swapAll(); }
+
+  swapAll(){
+    const live = this.state.live;
+    if(!live) return;
+    Object.keys(this.staticKeys).forEach(k => { if(live[k]) this.swapStatic(k, live[k]); });
+  }
+
+  get staticKeys(){ return {heroInterior:1, customRoom:1, collabDeferla:1, bannerWallart:1}; }
+
+  src(key){ return (this.state.live && this.state.live[key]) || FALLBACK[key]; }
+
+  go(screen){ this.setState({screen,mega:null}); window.scrollTo(0,0); }
+
+  add(p,size,qty){
+    const s = size || SIZES[0].label;
+    const q = qty || 1;
+    this.setState(st=>{
+      const i = st.lines.findIndex(l=>l.id===p.id && l.size===s);
+      const lines = st.lines.slice();
+      if(i>=0) lines[i] = Object.assign({},lines[i],{qty:lines[i].qty+q});
+      else lines.push({id:p.id,title:p.title,designer:p.designer,image:p.image,amount:p.amount,size:s,qty:q});
+      return {lines,cartOpen:true};
+    });
+  }
+
+  remove(i){ this.setState(st=>({lines:st.lines.filter((_,k)=>k!==i)})); }
+
+  productVals(p){
+    return {
+      id:p.id, title:p.title, designer:p.designer, image:this.src(p.img), badge:p.badge||'',
+      soldOut:!!p.soldOut, priceStr:euro(p.amount), compareStr:p.compareAt?euro(p.compareAt):'',
+      cta:p.soldOut?'Notify me':'Add to cart',
+      open:e=>{ if(e&&e.preventDefault)e.preventDefault(); this.setState({galleryIndex:0,sizeIndex:0,qty:1,current:p.id}); this.go('product'); },
+      add:()=>{ if(p.soldOut) return; this.add(p); }
+    };
+  }
+
+  renderVals(){
+    const st = this.state;
+    const cols = this.props.gridColumns || 3;
+    const active = Object.keys(st.facets).filter(k=>st.facets[k]);
+    let list = CATALOG.filter(p=>!active.length || active.indexOf(p.designer)>=0);
+    if(st.sort==='Price, low to high') list = list.slice().sort((a,b)=>a.amount-b.amount);
+    if(st.sort==='Price, high to low') list = list.slice().sort((a,b)=>b.amount-a.amount);
+
+    const current = CATALOG.find(p=>p.id===(st.current||'bici')) || CATALOG[0];
+    const size = SIZES[st.sizeIndex];
+    const mega = st.mega ? MEGA[st.mega] : null;
+
+    return {
+      announcement: this.props.announcement || 'Autumn edition — limited runs, signed by the artist',
+      isHome: st.screen==='home', isCollection: st.screen==='collection', isProduct: st.screen==='product',
+      goHome: e=>{ if(e&&e.preventDefault)e.preventDefault(); this.go('home'); },
+      goCollection: e=>{ if(e&&e.preventDefault)e.preventDefault(); this.go('collection'); },
+      closeMega: ()=>this.setState({mega:null}),
+      megaOpen: !!mega,
+      megaColumns: mega ? mega.columns.map(c=>({title:c.title,links:c.links.map(l=>({label:l,go:e=>{ if(e&&e.preventDefault)e.preventDefault(); this.go('collection'); }}))})) : [],
+      megaImage: mega ? this.src(mega.img) : '',
+      megaPromoTitle: mega ? mega.promo : '',
+      navItems: [
+        {label:'Shop all', hover:()=>this.setState({mega:'Shop'}), go:()=>this.go('collection')},
+        {label:'Wall art', hover:()=>this.setState({mega:'Shop'}), go:()=>this.go('collection')},
+        {label:'Home deco', hover:()=>this.setState({mega:'Shop'}), go:()=>this.go('collection')},
+        {label:'Artists', hover:()=>this.setState({mega:'Artists'}), go:()=>this.go('collection')},
+        {label:'Custom made', hover:()=>this.setState({mega:null}), go:()=>this.go('home')},
+        {label:'Journal', hover:()=>this.setState({mega:null}), go:()=>this.go('home')}
+      ],
+      valueProps: [
+        {title:'Designs by artists',body:'Named contemporary artists, in limited runs.'},
+        {title:'Printed in-house',body:'State-of-the-art digital printing in Belgium.'},
+        {title:'Made for interiors',body:'Indoor and outdoor pieces that hold a room.'},
+        {title:'15-day guarantee',body:'Money back within 15 days, no questions.'}
+      ],
+      categories: [
+        {title:'Wall art',count:'12 pieces',image:this.src('catWallart'),go:e=>{ if(e&&e.preventDefault)e.preventDefault(); this.go('collection'); }},
+        {title:'Candles & diffusers',count:'9 pieces',image:this.src('catCandles'),go:e=>{ if(e&&e.preventDefault)e.preventDefault(); this.go('collection'); }},
+        {title:'Outdoor deco',count:'7 pieces',image:this.src('catOutdoor'),go:e=>{ if(e&&e.preventDefault)e.preventDefault(); this.go('collection'); }}
+      ],
+      artists: [
+        {name:'Anne Mondy',bio:'Vibrant colour and organic shapes, from Paris to Antwerp interiors.',image:this.src('artistAnne')},
+        {name:'B.R.A.S.S.',bio:'Graphic, brand-fluent work — collaborations with De Ferla and beyond.',image:this.src('artistBrass')},
+        {name:'Juan de Lascurain',bio:'Playful line work that turns a wall into a conversation.',image:this.src('artistJuan')}
+      ],
+      featured: CATALOG.slice(0,4).map(p=>this.productVals(p)),
+      collectionProducts: list.map(p=>this.productVals(p)),
+      related: CATALOG.filter(p=>p.id!==current.id).slice(0,4).map(p=>this.productVals(p)),
+      productCount: list.length,
+      gridTemplate: 'repeat('+cols+',1fr)',
+      artistFacets: Object.keys(st.facets).map(k=>({
+        label:k, on:st.facets[k],
+        toggle:()=>this.setState(s=>({facets:Object.assign({},s.facets,{[k]:!s.facets[k]})}))
+      })),
+      activeChips: active.map(k=>({label:k,remove:()=>this.setState(s=>({facets:Object.assign({},s.facets,{[k]:false})}))})),
+      clearFacets: ()=>this.setState({facets:{'Juan de Lascurain':false,'Anne Mondy':false,'B.R.A.S.S.':false}}),
+      setSort: e=>this.setState({sort:e.target.value}),
+      current: {title:current.title,designer:current.designer},
+      heroImage: this.src(GALLERY[st.galleryIndex]),
+      gallery: GALLERY.map((k,i)=>({src:this.src(k),border:i===st.galleryIndex?'#12100E':'#E4DFD7',select:()=>this.setState({galleryIndex:i})})),
+      sizes: SIZES.map((s,i)=>({
+        label:s.label,
+        bg:i===st.sizeIndex?'#12100E':'#FFFFFF',
+        color:i===st.sizeIndex?'#FAF8F5':'#12100E',
+        border:i===st.sizeIndex?'#12100E':'#DED7CC',
+        select:()=>this.setState({sizeIndex:i})
+      })),
+      selectedPriceStr: euro(current.amount + size.delta),
+      qty: st.qty,
+      incQty: ()=>this.setState(s=>({qty:s.qty+1})),
+      decQty: ()=>this.setState(s=>({qty:Math.max(1,s.qty-1)})),
+      addCurrent: ()=>this.add({id:current.id,title:current.title,designer:current.designer,image:this.src(current.img),amount:current.amount+size.delta},size.label,st.qty),
+      tabs: TABS.map(t=>({
+        label:t, border:t===st.tab?'#12100E':'transparent', color:t===st.tab?'#12100E':'#7C7469',
+        select:()=>this.setState({tab:t})
+      })),
+      tabRows: TAB_ROWS[st.tab],
+      cartOpen: st.cartOpen,
+      openCart: ()=>this.setState({cartOpen:true}),
+      closeCart: ()=>this.setState({cartOpen:false}),
+      cartCount: st.lines.reduce((s,l)=>s+l.qty,0),
+      cartEmpty: st.lines.length===0,
+      cartLines: st.lines.map((l,i)=>Object.assign({},l,{lineTotal:euro(l.amount*l.qty),remove:()=>this.remove(i)})),
+      cartTotal: euro(st.lines.reduce((s,l)=>s+l.amount*l.qty,0)),
+      screenTabs: [
+        {key:'home',label:'Home'},{key:'collection',label:'Collection'},{key:'product',label:'Product'}
+      ].map(s=>({
+        label:s.label,
+        bg:st.screen===s.key?'#FAF8F5':'transparent',
+        color:st.screen===s.key?'#12100E':'#DED7CC',
+        select:()=>this.go(s.key)
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

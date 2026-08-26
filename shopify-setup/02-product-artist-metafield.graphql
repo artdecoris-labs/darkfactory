@@ -5,7 +5,7 @@
 #     --query-file shopify-setup/02-product-artist-metafield.graphql \
 #     --variable-file shopify-setup/02-product-artist-metafield.variables.json
 #
-# Requires the write_metafield_definitions scope.
+# Requires the write_products scope — there is no write_metafield_definitions scope.
 
 mutation CreateProductArtistMetafield($definition: MetafieldDefinitionInput!) {
   metafieldDefinitionCreate(definition: $definition) {

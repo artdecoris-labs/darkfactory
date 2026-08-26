@@ -9,8 +9,12 @@ not a bug.
 
 ```powershell
 shopify store auth --store <store>.myshopify.com `
-  --scopes write_metaobject_definitions,write_metafield_definitions,read_products
+  --scopes write_metaobject_definitions,write_metaobjects,write_products
 ```
+
+> There is **no** `write_metafield_definitions` scope — asking for one fails the OAuth
+> flow with `invalid_scope`. Metafield definitions are covered by the owner resource’s
+> scope, so a **product** metafield definition needs `write_products`.
 
 The store handle is in the theme repo's gitignored `shopify.theme.toml`.
 

@@ -38,6 +38,41 @@ All changes made through `shopify store execute` using the files in this folder.
 
 ---
 
+## 2026-08-26 — Trilingual content
+
+Dutch stays the primary locale; English and French added alongside. All content was
+**migrated from the live Odoo site**, which already publishes all three languages at
+`/<slug>`, `/nl/<slug>` and `/fr/<slug>`. Nothing was written or machine-translated.
+
+| # | Change | Mutation | Reversal |
+| --- | --- | --- | --- |
+| 8 | Locales `en` and `fr` enabled | `shopLocaleEnable` ×2 | `shopLocaleDisable` |
+| 9 | Both published — **after** translations existed, so no locale was ever live and empty | `shopLocaleUpdate` ×2 | `shopLocaleUpdate` `published: false` |
+| 10 | The three artist entries rewritten with **Dutch** in their own fields. They previously held English, which sat wrongly in the primary slot | `metaobjectUpdate` ×3 | re-run with the English values |
+| 11 | 18 translations registered — 3 artists × 2 locales × 3 fields | `translationsRegister` ×3 | `translationsRemove` |
+
+### Blocked — needs the admin UI
+
+**Alternate-locale URLs do not route.** `/en/pages/artists` and `/fr/pages/artists`
+return 404, and the storefront emits no `hreflang`. Publishing a locale is not enough:
+the **market** has to serve it.
+
+The primary market *België* reports `webPresences` as **empty**, yet
+`marketWebPresenceCreate` refuses with `domainId has already been taken`. So a web
+presence exists but is not readable or updatable through this API surface.
+
+**Do this in admin instead:** *Settings → Markets → België → Languages* → add English and
+French. Then re-check:
+
+```
+/en/pages/artists   expect 200
+/fr/pages/artists   expect 200
+```
+
+Until then the translations are stored correctly and simply have no URL to appear on.
+
+---
+
 ## Template for new entries
 
 ```markdown

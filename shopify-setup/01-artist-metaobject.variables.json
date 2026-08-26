@@ -17,7 +17,10 @@
         "type": "file_reference",
         "description": "Portrait photo. The card crops to 3:4, so supply at least 800x1000.",
         "validations": [
-          { "name": "file_type_options", "value": "[\"Image\"]" }
+          {
+            "name": "file_type_options",
+            "value": "[\"Image\"]"
+          }
         ]
       },
       {
@@ -37,7 +40,10 @@
         "name": "Signature",
         "type": "file_reference",
         "validations": [
-          { "name": "file_type_options", "value": "[\"Image\"]" }
+          {
+            "name": "file_type_options",
+            "value": "[\"Image\"]"
+          }
         ]
       },
       {
@@ -48,8 +54,12 @@
       }
     ],
     "capabilities": {
-      "publishable": { "enabled": true },
-      "translatable": { "enabled": true },
+      "publishable": {
+        "enabled": true
+      },
+      "translatable": {
+        "enabled": true
+      },
       "onlineStore": {
         "enabled": true,
         "data": {
@@ -59,7 +69,6 @@
       }
     },
     "access": {
-      "admin": "MERCHANT_READ_WRITE",
       "storefront": "PUBLIC_READ"
     }
   }

@@ -21,7 +21,7 @@ mutation CreateArtistDefinition($definition: MetaobjectDefinitionCreateInput!) {
         required
       }
 capabilities {
-        onlineStore { enabled data { urlHandle createRedirects } }
+        onlineStore { enabled data { urlHandle } }
         publishable { enabled }
         translatable { enabled }
       }

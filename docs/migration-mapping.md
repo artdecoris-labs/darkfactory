@@ -92,10 +92,17 @@ then `stagedUploadsCreate` → `fileCreate` → attach.
 
 ### ⚠ Variant ceiling
 
-Shopify allows **100 variants and 3 options** per product. Odoo attribute matrices
-routinely exceed both. This is the single most common reason a catalog migration stalls
-halfway. The evaluation stage flags every offender; each one needs an explicit decision:
-split into several products, drop an option, or model it with a metafield.
+Shopify allows **3 options** per product. The variant limit was raised to **2048 for all
+merchants in October 2025**, so variants are rarely the binding constraint - options are.
+
+Every Art Decoris product observed uses exactly three: **Size + Designer + a category
+option** (Beanbag Option, Cushion Option). That is the ceiling, catalogue-wide, with zero
+headroom.
+
+**Designer is not really a product option** - it does not vary within a product, it
+attributes it. Moving it to `vendor` frees the third slot across the whole catalogue and
+fixes the artist model at the same time. Where a fourth option is genuinely unavoidable,
+the supported mechanism is **Combined Listings**.
 
 ## Artists — the gap the design assumes
 
@@ -197,8 +204,9 @@ re-run or every redirect breaks.
 2. Tax configuration — are `list_price` values tax-inclusive? Belgium/EU VAT applies.
 3. Multi-currency? Multi-warehouse?
 4. Approximate record counts per model (drives paging and runtime estimates).
-5. Does the catalog use `product.template.attribute` matrices anywhere near Shopify's
-   100-variant / 3-option ceiling?
+5. ~~Variant ceiling?~~ - confirmed: every product sampled uses exactly 3 options
+   (Size, Designer, category option). At the limit, no headroom. Confirm the store's own
+   figures with `shop { resourceLimits { maxProductOptions maxProductVariants } }`.
 6. ~~Are there Odoo CMS pages?~~ — yes. Beyond the artist pages: `/about-us`,
    `/custom-art`, `/faq`, `/terms`, `/contactus`, plus a `/blog` with 2 posts and an
    Odoo `/helpdesk` knowledge base. Decide which become Shopify pages, which become

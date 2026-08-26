@@ -34,9 +34,12 @@ npm --prefix load run load -- --apply
 
 ## Things that bite
 
-- **Variant ceilings.** Shopify allows 100 variants and 3 options per product. Odoo
-  attribute matrices routinely exceed both. The evaluation report flags this; it is the
-  single most common reason a catalog migration stalls halfway.
+- **Option ceiling.** Shopify allows **3 options** per product (the variant limit was
+  raised to 2048 for all merchants in Oct 2025, so variants are rarely the binding
+  constraint - options are). Art Decoris products already use exactly three: Size,
+  Designer, and a category option. There is no headroom. Moving Designer to `vendor`
+  frees the third slot. Where a fourth option is genuinely needed, the supported escape
+  hatch is **Combined Listings**.
 - **Customer passwords cannot migrate.** Customers must reset. This needs a comms plan
   and has GDPR implications — raise it, do not silently skip it.
 - **Redirects are not optional.** Every old Odoo product and category URL needs a 301 to

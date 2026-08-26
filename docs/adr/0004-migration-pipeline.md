@@ -33,7 +33,7 @@ API client and CLI are first-class in Node.
 
 The evaluation gate is the part worth defending. A catalog load that fails halfway is
 far more expensive to undo than to prevent, and the failure modes are knowable in
-advance — Shopify's 100-variant / 3-option ceiling against Odoo attribute matrices,
+advance — Shopify's 3-option ceiling against Odoo attribute matrices,
 duplicate SKUs, missing images, unmapped categories. Discovering those from a report is
 cheap; discovering them from a half-populated production store is not.
 

@@ -163,9 +163,10 @@ Build `evaluate/`; run against the full extract; review the HTML report together
 on `transform/*.yaml` until the verdict passes.
 
 Checks: completeness, integrity (duplicate SKUs, orphan variants, broken media),
-**Shopify limits** (100 variants / 3 options — Odoo attribute matrices routinely exceed
-both, and this is the most common reason a catalog migration stalls halfway), mapping
-coverage, and HTML-description normalization preview.
+**Shopify limits** (**3 options** per product — the variant cap rose to 2048 for all
+merchants in Oct 2025, so options bind, not variants; every Art Decoris product already
+uses exactly three: Size + Designer + a category option), mapping coverage, and
+HTML-description normalization preview.
 
 ### Phase D — Shopify load
 

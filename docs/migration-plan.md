@@ -142,7 +142,8 @@ Scaffold `artdecoris-odoo-migration`; create the GitHub repo under `artdecoris-l
 Write `contracts/staging.schema.json` **first** — it is the Python↔Node contract.
 
 Then the Python XML-RPC extractor (`uv`-managed), in order: categories → product
-templates → variants → media → customers → orders. Page everything; Odoo.sh enforces
+templates → variants → media → customers → orders — **each one looped over three
+languages** (see below). Page everything; Odoo.sh enforces
 per-worker timeouts, so batch 500–1000 and expect to resume.
 
 **Reconnaissance run first**, read-only: record counts per model, attribute/variant
@@ -156,6 +157,14 @@ cardinality, image counts, currency and tax configuration.
 > shaped like the accounting chart instead of the storefront.
 
 Field names in the mapping doc remain **unverified** until this run.
+
+> **The storefront is trilingual (nl / en / fr) and this was not in the original scope.**
+> Every translatable field arrives three times. Dutch is Shopify’s primary locale while
+> Odoo serves English by default, so extracting without specifying a language yields
+> English and puts it in the Dutch slot — which already happened once with the artist
+> entries. The staging schema needs a per-locale shape decided **before** the extractor is
+> written; retrofitting means rewriting both halves. See
+> `migration-mapping.md` → Languages.
 
 ### Phase C — Evaluate
 

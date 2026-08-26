@@ -195,6 +195,80 @@ Historical orders import with limited editability and cannot be re-processed for
 payment. They are for customer-account continuity and reporting, not operations. Map
 `odoo.id`, order number, dates, line items, totals, and the customer link.
 
+## Languages — the multiplier nobody costed
+
+The storefront is **trilingual**, and this was not in the original scope. It multiplies
+the extract: every translatable field arrives three times, not once.
+
+Confirmed on the live site — all three return 200 and carry genuinely different copy,
+so this is a **migration**, not a translation job:
+
+| Locale | Odoo URL | Shopify |
+| --- | --- | --- |
+| **nl** | `/nl/<slug>` | **primary** — lives in the resource's own fields |
+| en | `/<slug>` | registered translation |
+| fr | `/fr/<slug>` | registered translation |
+
+> **Dutch is the Shopify primary locale**, but `artdecoris.com` serves **English** by
+> default. Extracting "the" value without specifying a language therefore yields English
+> and quietly puts it in the Dutch slot. This already happened once with the artist
+> entries and had to be corrected.
+
+### Extracting per language
+
+Pass the language in the XML-RPC **context**. Each call returns that language's values:
+
+```python
+models.execute_kw(db, uid, key, 'product.template', 'search_read',
+                  [domain], {'fields': fields, 'context': {'lang': 'nl_BE'}})
+```
+
+So the extract loops **models × languages**. Confirm the exact installed codes from
+`res.lang` during reconnaissance — `nl_BE` vs `nl_NL`, `en_GB` vs `en_US`,
+`fr_BE` vs `fr_FR` all differ and guessing produces silent fallbacks to the default
+language rather than errors.
+
+*(Background, to verify: Odoo 16 moved field translations from the `ir.translation`
+model into JSONB columns on the record. The context approach above works either way, so
+nothing depends on this.)*
+
+### Loading into Shopify
+
+Primary-locale values go into the resource's own fields. Everything else is registered:
+
+1. `shopLocaleEnable` for each additional locale.
+2. For each resource, read `translatableResource.translatableContent` — this returns a
+   **`digest`** per field.
+3. `translationsRegister` with that digest alongside the translated value.
+
+**The digest is the part that bites.** Shopify uses it to detect a translation written
+against a source value that has since changed. Register with a stale digest and the
+translation is rejected or flagged outdated — so the digest must be read *at load time*,
+not cached from an earlier run.
+
+### What is translatable
+
+Products (title, description, handle, SEO), collections, pages, articles, **metaobjects**
+(the artist definition already has the `translatable` capability), theme content and
+section settings, and shop policies.
+
+### Structure differs per language at source
+
+Odoo's Dutch and French pages merge paragraphs that the English one splits — Anne Mondy
+is 3 paragraphs in English and 2 in Dutch, with more characters. **Do not treat unequal
+paragraph counts as truncation.** Each language keeps its own structure; the evaluation
+gate should compare character counts, not paragraph counts.
+
+### Consequences for the rest of the pipeline
+
+- **Staging schema.** Translatable fields need a per-locale shape, not a single string.
+  Decide this in `contracts/staging.schema.json` before writing the extractor — retrofitting
+  it means rewriting both halves.
+- **Redirects triple.** `/nl/<slug>` and `/fr/<slug>` both need targets, and Shopify
+  localises URLs with a locale prefix on the primary domain.
+- **Evaluation gate.** Add a check for missing translations per locale — a product with no
+  French title is a silent gap that surfaces as an English word on a French page.
+
 ## Redirects and SEO
 
 Every old Odoo URL needs a 301. Generated into `transform/redirects.yaml`, loaded with
@@ -215,6 +289,8 @@ re-run or every redirect breaks.
    is clearly in use (the storefront is live).
 2. Tax configuration — are `list_price` values tax-inclusive? Belgium/EU VAT applies.
 3. Multi-currency? Multi-warehouse?
+3a. ~~Languages?~~ — confirmed **nl / en / fr**, all live on the Odoo site. Confirm the
+   exact `res.lang` codes during reconnaissance.
 4. Approximate record counts per model (drives paging and runtime estimates).
 5. ~~Variant ceiling?~~ - confirmed: every product sampled uses exactly 3 options
    (Size, Designer, category option). At the limit, no headroom. Confirm the store's own

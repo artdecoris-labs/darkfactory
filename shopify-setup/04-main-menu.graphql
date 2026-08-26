@@ -1,0 +1,16 @@
+# Appends "Meet the artists" to the main menu.
+#
+# menuUpdate REPLACES the whole item list, so read the current items first and
+# send them back plus the new one. Never send only the new item.
+#
+#   shopify store execute -s <store>.myshopify.com \
+#     -q 'query { menus(first: 5) { nodes { id handle title items { id title type url } } } }'
+#
+# Requires write_online_store_navigation.
+
+mutation UpdateMainMenu($id: ID!, $title: String!, $handle: String!, $items: [MenuItemUpdateInput!]!) {
+  menuUpdate(id: $id, title: $title, handle: $handle, items: $items) {
+    menu { id handle title items { title url } }
+    userErrors { field message }
+  }
+}

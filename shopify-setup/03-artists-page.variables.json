@@ -1,0 +1,9 @@
+{
+  "page": {
+    "title": "Meet the artists",
+    "handle": "artists",
+    "templateSuffix": "artists",
+    "isPublished": true,
+    "body": "<p>The designers behind Art Decoris.</p>"
+  }
+}

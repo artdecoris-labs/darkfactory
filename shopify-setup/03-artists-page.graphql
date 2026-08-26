@@ -1,0 +1,12 @@
+# Creates the "Meet the artists" page. Its handle must be `artists` so the URL is
+# /pages/artists, and templateSuffix `artists` binds it to
+# templates/page.artists.json in the theme.
+#
+# Requires write_content — there is NO write_online_store_pages scope.
+
+mutation CreateArtistsPage($page: PageCreateInput!) {
+  pageCreate(page: $page) {
+    page { id title handle templateSuffix isPublished }
+    userErrors { field message code }
+  }
+}

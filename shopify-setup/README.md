@@ -9,12 +9,27 @@ not a bug.
 
 ```powershell
 shopify store auth --store <store>.myshopify.com `
-  --scopes write_metaobject_definitions,write_metaobjects,write_products
+  --scopes write_metaobject_definitions,write_metaobjects,write_products,write_files,read_files,write_content,write_online_store_navigation
 ```
 
-> There is **no** `write_metafield_definitions` scope — asking for one fails the OAuth
-> flow with `invalid_scope`. Metafield definitions are covered by the owner resource’s
-> scope, so a **product** metafield definition needs `write_products`.
+> **Get the scope list right first time.** One invalid name fails the whole OAuth flow
+> with `invalid_scope` — it does not grant the valid ones and skip the rest. Two names
+> that look right but do not exist:
+>
+> | Wrong | Actual |
+> | --- | --- |
+> | `write_metafield_definitions` | covered by the owner resource — a product metafield needs `write_products` |
+> | `write_online_store_pages` | pages are written with `write_content` |
+>
+> What each step needs:
+>
+> | Step | Scope |
+> | --- | --- |
+> | 1 artist metaobject definition | `write_metaobject_definitions` |
+> | 2 product metafield | `write_products` |
+> | artist entries + portraits | `write_metaobjects`, `write_files` |
+> | 3 artists page | `write_content` |
+> | 4 main menu | `write_online_store_navigation` |
 
 The store handle is in the theme repo's gitignored `shopify.theme.toml`.
 
@@ -60,7 +75,24 @@ shopify store execute -s <store>.myshopify.com --allow-mutations `
   --variable-file shopify-setup/02-product-artist-metafield.variables.json
 ```
 
-## 3. Add the first artists
+## 3. Create the artists page
+
+```powershell
+shopify store execute -s <store>.myshopify.com --allow-mutations `
+  --query-file shopify-setup/03-artists-page.graphql `
+  --variable-file shopify-setup/03-artists-page.variables.json
+```
+
+Handle must be `artists` so the URL is `/pages/artists`; `templateSuffix: artists`
+binds it to `templates/page.artists.json`. Artist entries sit one level deeper at
+`/pages/artists/<handle>`, so the two coexist.
+
+## 4. Add it to the main menu
+
+`menuUpdate` **replaces** the whole item list, so read the current items first and send
+them back along with the new one — see the comment in `04-main-menu.graphql`.
+
+## 5. Add the first artists
 
 Content → Metaobjects → Artists. Three exist on the Odoo site today: Anne Mondy,
 B.R.A.S.S., Juan de Lascurain. The migration will populate the rest.

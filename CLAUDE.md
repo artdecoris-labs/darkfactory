@@ -36,11 +36,32 @@ phase completes.
 > deliberate launch step, not part of the normal flow. Theme IDs live in the gitignored
 > `shopify.theme.toml`.
 
+### The five gates
+
+```
+local edit ─▶ ① validate local ─▶ ② push stage ─▶ ③ validate admin ─▶ ④ PR to main ─▶ ⑤ go live
+  (stage)      theme check +        auto-syncs      preview stage       review diff     publish
+               theme dev            to stage theme  theme in admin                      main theme
+```
+
+Each gate must pass before the next. Full detail in the `theme-release` skill.
+
+Until go-live the built-in *Horizon* theme stays published and `main` is preview-only.
+Publishing the `main` theme is a single deliberate launch action — and the old *Horizon*
+theme is kept afterwards as the instant rollback.
+
+> **⚠ The GitHub integration is two-way.** Edits made in the Shopify theme editor are
+> committed back to the connected branch automatically. Previewing in admin is
+> **look-don't-edit**: editing the `stage` theme silently puts your local clone behind
+> (`git pull` before resuming), and editing the `main` theme bypasses the PR gate
+> entirely. Never customize the `main` theme in admin.
+
 Publishing is always a separate, explicit release action. Never let Shopify CLI or an
 MCP tool publish a theme as a side effect of anything.
 
 `shopify theme dev` creates a throwaway **development theme** for previewing your local
-working copy. It is not a branch and needs no git counterpart.
+working copy. It is not a branch, touches no connected theme, and needs no git
+counterpart.
 
 The theme is deliberately kept close to stock Horizon so upstream upgrades stay
 nearly conflict-free. Prefer theme settings, presets and blocks over editing vendor

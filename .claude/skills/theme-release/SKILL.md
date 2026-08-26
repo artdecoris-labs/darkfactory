@@ -1,66 +1,116 @@
 ---
 name: theme-release
-description: Promote theme work from stage to main (the published live theme). Use when asked to release, publish, ship, or merge theme changes to production.
+description: The Art Decoris theme release flow - five gates from local edit to live storefront. Use when changing the theme, validating it, promoting stage to main, or going live.
 ---
 
-# Theme release: stage → main
+# Theme release flow
 
-`main` is the **release branch**. Treat every promotion as a production deploy.
+Five gates. Each one has to pass before the next. Nothing skips ahead.
 
-> **As of 2026-08-26 the `main` theme is still unpublished.** The live storefront runs a
-> separate *Horizon* theme not connected to this repo, so merging to `main` currently
-> updates an unpublished theme and reaches no customers. That changes the moment someone
-> publishes the `main` theme at launch — do not let this note make you casual about
-> merges. Re-check with `shopify theme list` (look for the `[live]` marker) before
-> assuming either way.
-
-Publishing is always an explicit, separate action — never a side effect.
-
-## Before promoting
-
-1. Working tree clean, on `stage`, up to date:
-   ```powershell
-   git -C C:\DevOps\artdecoris-shop-theme-00 switch stage
-   git -C C:\DevOps\artdecoris-shop-theme-00 pull
-   git status --short          # must be empty
-   ```
-2. Validation passes:
-   ```powershell
-   shopify theme check --fail-level error
-   ```
-3. Previewed and reviewed by a human:
-   ```powershell
-   shopify theme dev -e stage
-   ```
-   Check desktop **and** mobile widths, and both colour schemes.
-4. Review what is actually going out:
-   ```powershell
-   git diff --stat main stage
-   ```
-   Anything surprising in `config/settings_data.json` usually means someone edited the
-   theme in Shopify admin. Resolve that before promoting.
-
-## Promoting
-
-Always by pull request — never a direct push to `main`.
-
-```powershell
-git push origin stage
-# open a PR: stage -> main, review the diff, merge
+```
+  local edit ──▶ ① local validate ──▶ ② push stage ──▶ ③ admin validate ──▶ ④ PR to main ──▶ ⑤ go live
+   (stage)        theme check           auto-syncs        preview stage        review diff      publish
+                  + theme dev           to stage theme    theme in admin                        main theme
 ```
 
-Shopify's GitHub integration syncs the merged `main` to its connected theme. Whether
-that theme is the live one depends on what is published — check `shopify theme list`.
+## Theme ↔ branch map
 
-## After promoting
+| Branch | Shopify theme | Published? |
+| --- | --- | --- |
+| `stage` | `artdecoris-shop-theme-00/stage` | No |
+| `main` | `artdecoris-shop-theme-00/main` | **No — not yet** |
+| *(none)* | `Horizon` | **Yes — this is the live storefront** |
 
-- Load the live storefront and confirm the header, a collection page, a product page,
-  and cart all render.
-- If something is wrong, revert the merge commit and let the integration sync back.
-  Do not hand-edit the live theme in admin.
+The live storefront runs a standalone *Horizon* theme that is **not connected to this
+repo**. Until go-live it stays that way, and `main` is previewed only. IDs are in the
+gitignored `shopify.theme.toml`. Re-check with `shopify theme list` — look for `[live]`.
+
+---
+
+## ① Edit and validate locally — on `stage`
+
+```powershell
+git -C C:\DevOps\artdecoris-shop-theme-00 switch stage
+git -C C:\DevOps\artdecoris-shop-theme-00 pull      # see the two-way sync warning below
+shopify theme check --fail-level error              # automated gate — must pass
+shopify theme dev                                   # http://127.0.0.1:9292
+```
+
+`shopify theme dev` serves your **local working copy** through a throwaway *Development*
+theme. It does not touch `stage`, `main`, or the live theme. This is the fast loop —
+hot reload, uncommitted edits visible immediately.
+
+**Gate:** theme check clean, and the change reviewed by a human at desktop *and* mobile
+widths, in both colour schemes.
+
+## ② Push to `stage`
+
+```powershell
+git add -A && git commit && git push origin stage
+```
+
+The GitHub integration syncs the branch to the `stage` theme automatically, usually
+within a minute.
+
+## ③ Validate in the admin
+
+**Online Store → Themes → `artdecoris-shop-theme-00/stage` → Preview.**
+
+This is the first time the change is rendered by Shopify's real infrastructure rather
+than the local proxy — CDN, real product data, real money formatting.
+
+> ### ⚠ Look, do not edit
+>
+> **The GitHub integration is two-way.** Anything you change in the theme editor is
+> committed straight back to the connected branch by the Shopify bot, and edits within
+> ~10 seconds are batched into one commit. That means:
+>
+> - Editing the `stage` theme in admin **writes commits to `stage`** — your local clone
+>   is now behind. Always `git pull` before resuming local work.
+> - Editing the `main` theme in admin **writes commits to `main`, bypassing the PR
+>   gate entirely.** Never customize the `main` theme in admin.
+>
+> If you do edit in admin deliberately, pull immediately afterwards so local and remote
+> agree. `Reset to last commit` in admin discards admin-side changes if you'd rather.
+
+**Gate:** renders correctly on real data, and `git status` locally is still clean after
+a `git pull`.
+
+## ④ PR `stage` → `main`
+
+Always by pull request. Never push directly to `main`.
+
+Review the diff properly — in particular `config/settings_data.json`, which is where
+theme-editor changes land if anyone edited in admin. A surprise there means step ③ was
+not read-only.
+
+```powershell
+git diff --stat main stage
+```
+
+Merging syncs the `main` theme. **This still reaches no customers** while `main` is
+unpublished — preview it from admin the same way as `stage`.
+
+**Gate:** diff contains only intended changes; `main` theme previews correctly.
+
+## ⑤ Go live — one time, deliberate
+
+Only when confident:
+
+**Online Store → Themes → `artdecoris-shop-theme-00/main` → Publish.**
+
+- **Keep the old `Horizon` theme.** Do not delete it. It is the instant rollback: if
+  something breaks, republish it and the storefront reverts in seconds, then fix forward
+  on `stage`.
+- After this, `main` **is** the live storefront, and the caution in step ③ about the
+  `main` theme becomes critical rather than merely tidy.
+- Update the table at the top of this skill so it stops saying `main` is unpublished.
+
+---
 
 ## Never
 
 - Push directly to `main`.
-- Run `shopify theme push` against the live theme.
-- Publish a theme from the CLI or an MCP tool without the user explicitly asking.
+- Run `shopify theme push` or `shopify theme publish` against a connected theme.
+- Publish anything without the user explicitly asking.
+- Customize the `main` theme in the admin theme editor.

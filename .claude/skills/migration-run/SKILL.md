@@ -38,8 +38,11 @@ npm --prefix load run load -- --apply
   raised to 2048 for all merchants in Oct 2025, so variants are rarely the binding
   constraint - options are). Art Decoris products already use exactly three: Size,
   Designer, and a category option. There is no headroom. Moving Designer to `vendor`
-  frees the third slot. Where a fourth option is genuinely needed, the supported escape
-  hatch is **Combined Listings**.
+  frees the third slot — and that matters more than it looks, because **there is no
+  escape hatch below Shopify Plus**. Combined Listings, the official mechanism for
+  exceeding three options, is Plus/enterprise only. Below Plus the alternatives are
+  third-party option apps (behaviour varies, filtering often breaks), metafields (no
+  inventory or price effect) or line-item properties (no inventory, no filtering).
 - **Customer passwords cannot migrate.** Customers must reset. This needs a comms plan
   and has GDPR implications — raise it, do not silently skip it.
 - **Redirects are not optional.** Every old Odoo product and category URL needs a 301 to

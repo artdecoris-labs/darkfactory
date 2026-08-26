@@ -101,8 +101,20 @@ headroom.
 
 **Designer is not really a product option** - it does not vary within a product, it
 attributes it. Moving it to `vendor` frees the third slot across the whole catalogue and
-fixes the artist model at the same time. Where a fourth option is genuinely unavoidable,
-the supported mechanism is **Combined Listings**.
+fixes the artist model at the same time.
+
+> **There is no escape hatch below Shopify Plus.** Combined Listings — the official way
+> to exceed three options — is **Plus/enterprise only** (and needs a theme at v15.0.0+).
+> Below Plus the alternatives all give something up:
+>
+> | Approach | Inventory | Filtering | Price varies |
+> | --- | --- | --- | --- |
+> | Third-party option app | depends on app | often breaks | depends |
+> | Product/variant metafield | none | yes, via Search & Discovery | no |
+> | Line-item properties | none | no | no |
+>
+> So freeing the Designer slot is not housekeeping — it is what keeps a fourth option
+> possible at all without a plan upgrade.
 
 ## Artists — the gap the design assumes
 

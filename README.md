@@ -22,7 +22,7 @@ data and secrets do not — **this repository is public**.
 - **[`docs/migration-mapping.md`](docs/migration-mapping.md)** — Odoo → Shopify field contract.
 - **[`docs/odoo-shopify-terminology.md`](docs/odoo-shopify-terminology.md)** — false friends: words that mean different things in each system.
 - **[`docs/theme-experiments.md`](docs/theme-experiments.md)** — branch-per-theme variants and A/B testing.
-- **[`shopify-setup/`](shopify-setup/)** — one-time Admin API setup the theme depends on (artist metaobject, product metafield).
+- **[`shopify-setup/`](shopify-setup/)** — Admin API setup the theme depends on, and [CHANGELOG.md](shopify-setup/CHANGELOG.md) recording every store-side change.
 - **[`dev-environment/`](dev-environment/)** — tool setup.
 
 ## Skills

@@ -1,5 +1,8 @@
 # Shopify store setup
 
+> Every change made to the store is recorded in [CHANGELOG.md](CHANGELOG.md), with how to
+> reverse it. Store changes leave no diff — append an entry whenever you run a mutation.
+
 One-time Admin API configuration the theme depends on. Run in order.
 
 The `artist-grid` block renders an empty state until step 1 exists — that is expected,

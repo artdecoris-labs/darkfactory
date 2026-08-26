@@ -20,6 +20,8 @@ data and secrets do not — **this repository is public**.
 - **[`docs/migration-plan.md`](docs/migration-plan.md)** — plan of record: what is done, what is next, what is blocked.
 - **[`docs/adr/`](docs/adr/)** — why things are the way they are.
 - **[`docs/migration-mapping.md`](docs/migration-mapping.md)** — Odoo → Shopify field contract.
+- **[`docs/odoo-shopify-terminology.md`](docs/odoo-shopify-terminology.md)** — false friends: words that mean different things in each system.
+- **[`docs/theme-experiments.md`](docs/theme-experiments.md)** — branch-per-theme variants and A/B testing.
 - **[`dev-environment/`](dev-environment/)** — tool setup.
 
 ## Skills

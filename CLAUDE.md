@@ -70,6 +70,16 @@ files. When a vendor file must change, keep the diff minimal and say why in the 
 Theme-editor changes made in Shopify admin are **not** authoritative — either pull them
 back into git deliberately or discard them.
 
+> **Odoo is staying.** It is not being replaced, so both vocabularies remain in use and a
+> connector sits between them. Several words mean **different things in each system** —
+> `Vendor` most dangerously, where Odoo means the purchase supplier and Shopify means the
+> customer-facing brand. Read `docs/odoo-shopify-terminology.md` before writing any
+> mapping code.
+>
+> Core business information (licensing terms, royalty basis, margins) lives in
+> `C:\DevOps\artdecoris-private\` — **outside every repo, never committed.** All three
+> repos are public.
+
 ## Migration pipeline
 
 Extract → stage → **evaluate (human gate)** → load. Details in

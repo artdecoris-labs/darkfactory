@@ -1,0 +1,35 @@
+# Creates the `artist` metaobject definition — where an artist's portrait and
+# story live. Run once per store.
+#
+#   shopify store execute -s <store>.myshopify.com --allow-mutations \
+#     --query-file shopify-setup/01-artist-metaobject.graphql \
+#     --variable-file shopify-setup/01-artist-metaobject.variables.json
+#
+# Requires the write_metaobject_definitions scope at `shopify store auth`.
+
+mutation CreateArtistDefinition($definition: MetaobjectDefinitionCreateInput!) {
+  metaobjectDefinitionCreate(definition: $definition) {
+    metaobjectDefinition {
+      id
+      type
+      name
+      displayNameKey
+      fieldDefinitions {
+        key
+        name
+        type { name }
+        required
+      }
+capabilities {
+        onlineStore { enabled data { urlHandle createRedirects } }
+        publishable { enabled }
+        translatable { enabled }
+      }
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}

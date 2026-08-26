@@ -1,0 +1,66 @@
+{
+  "definition": {
+    "name": "Artist",
+    "type": "artist",
+    "description": "A designer whose work Art Decoris sells. Holds the portrait and story shown on artist cards.",
+    "displayNameKey": "name",
+    "fieldDefinitions": [
+      {
+        "key": "name",
+        "name": "Name",
+        "type": "single_line_text_field",
+        "required": true
+      },
+      {
+        "key": "portrait",
+        "name": "Portrait",
+        "type": "file_reference",
+        "description": "Portrait photo. The card crops to 3:4, so supply at least 800x1000.",
+        "validations": [
+          { "name": "file_type_options", "value": "[\"Image\"]" }
+        ]
+      },
+      {
+        "key": "blurb",
+        "name": "Short description",
+        "type": "multi_line_text_field",
+        "description": "One or two sentences, shown on the artist card."
+      },
+      {
+        "key": "bio",
+        "name": "Story",
+        "type": "rich_text_field",
+        "description": "The full story, shown on the artist's own page."
+      },
+      {
+        "key": "signature",
+        "name": "Signature",
+        "type": "file_reference",
+        "validations": [
+          { "name": "file_type_options", "value": "[\"Image\"]" }
+        ]
+      },
+      {
+        "key": "collection",
+        "name": "Works",
+        "type": "collection_reference",
+        "description": "The automated collection holding this artist's products."
+      }
+    ],
+    "capabilities": {
+      "publishable": { "enabled": true },
+      "translatable": { "enabled": true },
+      "onlineStore": {
+        "enabled": true,
+        "data": {
+          "urlHandle": "artists",
+          "createRedirects": true
+        }
+      }
+    },
+    "access": {
+      "admin": "MERCHANT_READ_WRITE",
+      "storefront": "PUBLIC_READ"
+    }
+  }
+}

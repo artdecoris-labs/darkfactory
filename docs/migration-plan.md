@@ -71,7 +71,8 @@ Odoo shop. Only `logo.png` had been real.
 | Odoo hosting | **Odoo.sh** (via `Server:` header) |
 | Odoo XML-RPC | `/xmlrpc/2/common` + `/xmlrpc/2/object` both reachable |
 | Odoo database | recorded in gitignored `secrets/odoo.local.env` |
-| Shopify store | handle in gitignored `shopify.theme.toml`; found via CLI dev-theme cache |
+| Shopify store | handle + theme IDs in gitignored `shopify.theme.toml` |
+| Live theme | a separate **Horizon** theme, **not** connected to this repo. Both branch themes are unpublished — nothing merged to `main` reaches customers until that theme is published at launch. |
 | Theme baseline | stock Horizon **4.1.4**, one intentional customization |
 | Design handoff | complete zip in `artdecoris-shop-design-system` |
 
@@ -195,7 +196,8 @@ verification, DNS, Odoo shop read-only/decommission.
 | Item | Owner | Blocks |
 | --- | --- | --- |
 | **Odoo user + API key** — Settings → Users → *user* → Account Security → New API Key. Read-only account with Sales/Inventory/Contacts/Website access is sufficient. | You | Phase B onward |
-| **`stage` → `main` PR** for `f270006` (header-logo fix + theme-check) | You | Nothing; do when convenient |
+| **`stage` → `main` PR** for the theme work | You | Nothing; both branch themes are unpublished |
+| **Publish the `main` theme at launch** — the live storefront still runs the unconnected *Horizon* theme #203032887644 and will keep doing so until this is done | You | Go-live |
 | **`uv` not installed** — `winget install astral-sh.uv` (no system Python needed) | Either | Phase B |
 | **4 images below spec** — `artist-juan` 221×228 is unusable at card size; `hero-interior` 1024×671 vs 1600×900; category tiles and collection banner are square sources going into portrait/wide slots and will crop hard | You | Design polish, not blocking |
 

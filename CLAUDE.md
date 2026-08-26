@@ -25,11 +25,22 @@ phase completes.
 
 ## Theme branch workflow
 
-- `stage` — unpublished Shopify theme. **All development happens here.**
-- `main` — published live theme. Reached only through a reviewed PR from `stage`.
+- `stage` → Shopify theme *artdecoris-shop-theme-00/stage*, **unpublished**. All
+  development happens here.
+- `main` → Shopify theme *artdecoris-shop-theme-00/main*, **also unpublished**.
+  Reached only through a reviewed PR from `stage`.
+
+> **Neither branch serves the live storefront.** The published theme is a separate
+> *Horizon* theme that is **not connected to this repository**. Nothing merged to
+> `main` reaches customers until that branch's theme is explicitly published — a
+> deliberate launch step, not part of the normal flow. Theme IDs live in the gitignored
+> `shopify.theme.toml`.
 
 Publishing is always a separate, explicit release action. Never let Shopify CLI or an
-MCP tool publish `stage` as a side effect of anything.
+MCP tool publish a theme as a side effect of anything.
+
+`shopify theme dev` creates a throwaway **development theme** for previewing your local
+working copy. It is not a branch and needs no git counterpart.
 
 The theme is deliberately kept close to stock Horizon so upstream upgrades stay
 nearly conflict-free. Prefer theme settings, presets and blocks over editing vendor

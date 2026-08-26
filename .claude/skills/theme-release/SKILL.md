@@ -5,8 +5,16 @@ description: Promote theme work from stage to main (the published live theme). U
 
 # Theme release: stage → main
 
-`main` is the **published live storefront**. Treat every promotion as a production
-deploy. Publishing is always an explicit, separate action — never a side effect.
+`main` is the **release branch**. Treat every promotion as a production deploy.
+
+> **As of 2026-08-26 the `main` theme is still unpublished.** The live storefront runs a
+> separate *Horizon* theme not connected to this repo, so merging to `main` currently
+> updates an unpublished theme and reaches no customers. That changes the moment someone
+> publishes the `main` theme at launch — do not let this note make you casual about
+> merges. Re-check with `shopify theme list` (look for the `[live]` marker) before
+> assuming either way.
+
+Publishing is always an explicit, separate action — never a side effect.
 
 ## Before promoting
 
@@ -41,7 +49,8 @@ git push origin stage
 # open a PR: stage -> main, review the diff, merge
 ```
 
-Shopify's GitHub integration syncs the merged `main` to the connected live theme.
+Shopify's GitHub integration syncs the merged `main` to its connected theme. Whether
+that theme is the live one depends on what is published — check `shopify theme list`.
 
 ## After promoting
 

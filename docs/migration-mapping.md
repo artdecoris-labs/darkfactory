@@ -3,11 +3,19 @@
 The contract between the two halves of the ETL. Written **before** the extractor so the
 staging schema has something to encode.
 
-> **Status: draft — unverified against the live Odoo instance.** Field names below are
-> standard Odoo 16/17. Confirm every one against the real database during the Phase 2
-> reconnaissance run, and record the Odoo version here when known.
->
-> **Odoo version:** _to be confirmed_
+> **Status: partly verified.** The instance was probed on 2026-08-26; the environment
+> facts below are confirmed. Individual **field names are still unverified** — confirm
+> each against the live database during the Phase 2 reconnaissance run.
+
+## The source instance
+
+| | |
+| --- | --- |
+| Storefront | <https://www.artdecoris.com> |
+| Odoo version | **18.0+e — Enterprise** (confirmed via `/web/webclient/version_info`) |
+| Hosting | **Odoo.sh** (confirmed via `Server:` response header) |
+| Database name | in `secrets/odoo.local.env` — not committed |
+| XML-RPC | `/xmlrpc/2/common` and `/xmlrpc/2/object` both confirmed reachable |
 
 ## Access
 
@@ -19,18 +27,35 @@ XML-RPC. `ODOO_URL`, `ODOO_DB`, `ODOO_USER`, `ODOO_API_KEY` from
 /xmlrpc/2/object  → execute_kw(db, uid, key, model, 'search_read', [domain], {fields, offset, limit})
 ```
 
-Always page. Never `search_read` an entire model in one call.
+**Authentication is by API key, not password.** Odoo 14+ requires a key when two-factor
+auth is on, and Odoo.sh instances normally have it enabled. Generate one at
+**Settings → Users → *your user* → Account Security → New API Key**. The key is shown
+once. It carries that user's full permissions, so use an account with read access to
+Sales, Inventory, Contacts and Website — read-only is sufficient for extraction.
+
+Always page. Never `search_read` an entire model in one call. Odoo.sh enforces per-worker
+request timeouts, so keep batches small (500–1000 records) and expect to resume.
 
 ## Catalog
 
-### `product.category` → Shopify custom collection
+### `product.public.category` → Shopify custom collection
+
+> **Use `product.public.category`, not `product.category`.** These are different models
+> and mixing them up is the classic Odoo→Shopify mistake. `product.category` is the
+> *internal* accounting/inventory category. `product.public.category` is the **eCommerce
+> category** — what shoppers actually browse on the website, and what should become
+> Shopify collections. Extract both; map the public one.
 
 | Odoo | Shopify | Notes |
 | --- | --- | --- |
 | `id` | metafield `odoo.id` | Idempotency key |
 | `name` | `title` | |
-| `complete_name` | — | Use to rebuild hierarchy |
 | `parent_id` | — | **Shopify collections are flat.** Nesting must become tags, filters, or a menu structure. Decide in `transform/category-to-collection.yaml`. |
+| `sequence` | — | Preserves the merchandising order Odoo shows |
+| `website_meta_title` / `website_meta_description` | `seo` | |
+
+Products link to these via `product.template.public_categ_ids` (many2many), **not**
+`categ_id`.
 
 ### `product.template` → Shopify product
 
@@ -44,7 +69,7 @@ Always page. Never `search_read` an entire model in one call.
 | `standard_price` | `inventoryItem.cost` | |
 | `weight` | variant `weight` | Odoo is kg by default — confirm |
 | `barcode` | variant `barcode` | |
-| `categ_id` | collection membership | |
+| `public_categ_ids` | collection membership | eCommerce categories (many2many). `categ_id` is the internal accounting category — keep it as a metafield at most. |
 | `active` | `status` | `false` → `ARCHIVED` |
 | `is_published` | `status` | `false` → `DRAFT` |
 | `attribute_line_ids` | `productOptions` | See variant limits below |
@@ -112,7 +137,11 @@ re-run or every redirect breaks.
 
 ## Open questions
 
-1. Odoo version and whether the website module is in use.
-2. Tax configuration — are `list_price` values tax-inclusive?
+1. ~~Odoo version~~ — confirmed 18.0 Enterprise on Odoo.sh. The website/eCommerce module
+   is clearly in use (the storefront is live).
+2. Tax configuration — are `list_price` values tax-inclusive? Belgium/EU VAT applies.
 3. Multi-currency? Multi-warehouse?
 4. Approximate record counts per model (drives paging and runtime estimates).
+5. Does the catalog use `product.template.attribute` matrices anywhere near Shopify's
+   100-variant / 3-option ceiling?
+6. Are there Odoo CMS pages (`website.page`) that need to become Shopify pages?

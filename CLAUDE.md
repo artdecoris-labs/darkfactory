@@ -8,13 +8,20 @@ secrets**.
 > handle, theme ID, API token, customer record, or order export. Real values live in
 > gitignored files (`secrets/`, `.env`, `shopify.theme.toml`) and in Shopify admin.
 
-## The three repositories
+## Where are we?
+
+`docs/migration-plan.md` is the plan of record — completed phases, confirmed facts,
+remaining work, and open items. Read it before starting anything, and update it when a
+phase completes.
+
+## The repositories
 
 | Path | Role |
 | --- | --- |
 | `C:\DevOps\darkfactory` | This repo. Conventions, ADRs, skills, migration mappings, design handoff. |
 | `C:\DevOps\artdecoris-shop-theme-00` | Shopify storefront. Near-stock Horizon 4.1.4. |
-| `C:\DevOps\artdecoris-odoo-migration` | Odoo → Shopify ETL. *(Phase 2 — not created yet.)* |
+| `C:\DevOps\artdecoris-shop-design-system` | Design handoff — artboard, design tokens, brand imagery. |
+| `C:\DevOps\artdecoris-odoo-migration` | Odoo → Shopify ETL. *(Phase B — not created yet.)* |
 
 ## Theme branch workflow
 

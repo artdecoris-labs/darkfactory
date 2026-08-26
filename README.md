@@ -11,11 +11,13 @@ data and secrets do not — **this repository is public**.
 | --- | --- |
 | **darkfactory** (this) | Conventions, ADRs, skills, migration mapping, design handoff |
 | [`artdecoris-shop-theme-00`](https://github.com/artdecoris-labs/artdecoris-shop-theme-00) | Shopify storefront — near-stock Horizon 4.1.4, `stage` → `main` |
-| `artdecoris-odoo-migration` | Odoo → Shopify ETL *(not created yet — Phase 2)* |
+| [`artdecoris-shop-design-system`](https://github.com/artdecoris-labs/artdecoris-shop-design-system) | Design handoff — artboard, tokens, brand imagery |
+| `artdecoris-odoo-migration` | Odoo → Shopify ETL *(not created yet — Phase B)* |
 
 ## Start here
 
 - **[`CLAUDE.md`](CLAUDE.md)** — the operating contract. Read this first.
+- **[`docs/migration-plan.md`](docs/migration-plan.md)** — plan of record: what is done, what is next, what is blocked.
 - **[`docs/adr/`](docs/adr/)** — why things are the way they are.
 - **[`docs/migration-mapping.md`](docs/migration-mapping.md)** — Odoo → Shopify field contract.
 - **[`dev-environment/`](dev-environment/)** — tool setup.

@@ -73,6 +73,43 @@ Until then the translations are stored correctly and simply have no URL to appea
 
 ---
 
+## 2026-08-26 — Eight sample products from the Odoo catalogue
+
+The store had **zero products**, so the homepage product section rendered empty. Eight
+real products were migrated from `artdecoris.com` to make the storefront reviewable —
+titles, descriptions, images, prices and designers all from the live site, nothing
+invented.
+
+| # | Change | Mutation | Reversal |
+| --- | --- | --- | --- |
+| 12 | Eight products created, `ACTIVE`, each with an `odoo.id` metafield and `vendor` set to its designer | `productCreate` ×8 | `productDelete` |
+| 13 | Prices set — `productCreate` defaults a new variant to 0.00 | `productVariantsBulkUpdate` ×8 | re-run with correct values |
+| 14 | All eight published to the **Online Store** channel | `publishablePublish` ×8 | `publishableUnpublish` |
+
+### What this exercise proved
+
+**`productCreate` with `status: ACTIVE` does not publish to any sales channel.** The
+products existed, were ACTIVE, had images and prices, and were invisible on the
+storefront — `publishedAt: null`, `onlineStoreUrl: null`. The bulk load in Phase B must
+publish explicitly, or it will appear to succeed and sell nothing.
+
+**Prices are locale-formatted in the HTML.** The English page renders `4,249.00` — comma
+as the *thousands* separator. A naive comma-to-dot conversion turns €4,249 into €4.25.
+The Dutch and French pages use `4.249,00`, the other way round. **Take prices from the
+Odoo API, not from scraped pages.**
+
+### Two data problems this surfaced
+
+1. **Not every product has a designer.** *Iridescent Monolith* has no attributes at all —
+   no Designer, no Size. `vendor` cannot be assumed populated; it was set to
+   `Art Decoris` as a placeholder and needs a real rule.
+2. **Designer names do not match the artist records.** Odoo says `BRASS`; the artist
+   metaobject, built from the artist page, says `B.R.A.S.S.` The vendor→artist join
+   silently fails for that one. The migration needs a normalisation rule, and the
+   evaluation gate should flag any vendor with no matching artist entry.
+
+---
+
 ## Template for new entries
 
 ```markdown

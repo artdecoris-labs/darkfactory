@@ -9,7 +9,7 @@
     "validations": [
       {
         "name": "metaobject_definition_id",
-        "value": "gid://shopify/MetaobjectDefinition/42533388636"
+        "value": "REPLACE_WITH_ID_FROM_STEP_01"
       }
     ],
     "access": {

@@ -47,6 +47,13 @@ and every card renders empty.
 Paste the id from step 1 into `02-product-artist-metafield.variables.json`, replacing
 `REPLACE_WITH_ID_FROM_STEP_01`, then:
 
+> **Put the placeholder back before committing.** These repos are public, so real
+> resource ids do not belong in them. Look the id up any time with:
+>
+> ```
+> shopify store execute -s <store>.myshopify.com \n>   -q 'query { metaobjectDefinitionByType(type: "artist") { id } }'
+> ```
+
 ```powershell
 shopify store execute -s <store>.myshopify.com --allow-mutations `
   --query-file shopify-setup/02-product-artist-metafield.graphql `

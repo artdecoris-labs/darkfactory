@@ -1,0 +1,39 @@
+# Odoo Designer value  ->  Shopify product vendor
+#
+# Seed for `artdecoris-odoo-migration/transform/`. Lives here until that repo exists.
+#
+# Why this file exists: Odoo publishes the same brand under more than one spelling, and
+# one of them carries an invisible character. Joining products to artists on a display
+# name is therefore unsafe. The artist metaobject has a `vendor` field holding the exact
+# Shopify vendor string; **that** is the join key, and this map is what produces it.
+
+version: 1
+
+# Exact Odoo Designer attribute values, mapped to the canonical Shopify vendor.
+map:
+  "Anne Mondy": "Anne Mondy"
+  "Juan de Lascurain": "Juan de Lascurain"
+  # Odoo carries both "BRASS" and "B.R.A.S.S.", and the brands page renders
+  # "BRASS﻿" with a zero-width no-break space. All collapse to the brand's own
+  # punctuated form, which is what the design uses and what customers see.
+  "BRASS": "B.R.A.S.S."
+  "B.R.A.S.S.": "B.R.A.S.S."
+
+# Applied to every value before lookup, so invisible characters never reach a comparison.
+normalise:
+  - strip_bom          # U+FEFF, seen on the Odoo brands page
+  - strip_zero_width   # U+200B-U+200D
+  - trim
+  - collapse_whitespace
+
+# Products with no Designer attribute at all — confirmed to exist, e.g. Iridescent
+# Monolith, which has no product attributes whatsoever.
+no_designer:
+  vendor: "Art Decoris"
+  # Placeholder pending a business decision: are these in-house pieces, or resold
+  # third-party brands? See artdecoris-private/business-questions.md, question 1.
+  decision_required: true
+
+# The evaluation gate must fail on either of these rather than loading silently:
+#   - an Odoo Designer value with no entry in `map`
+#   - a Shopify vendor with no artist metaobject carrying that `vendor` key

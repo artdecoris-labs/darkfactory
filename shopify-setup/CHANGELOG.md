@@ -117,6 +117,27 @@ Odoo API, not from scraped pages.**
 
 ---
 
+## 2026-08-26 — Vendor join made explicit
+
+The sample load exposed that Odoo's designer value `BRASS` did not match the artist
+record `B.R.A.S.S.`, so the product→artist join failed silently. Odoo publishes both
+spellings, and the brands page renders one with a zero-width no-break space.
+
+| # | Change | Mutation | Reversal |
+| --- | --- | --- | --- |
+| 15 | `vendor` field added to the `artist` metaobject definition — the exact Shopify vendor string, used as the join key instead of the display name | `metaobjectDefinitionUpdate` | `metaobjectDefinitionUpdate` with `delete` |
+| 16 | Vendor keys set: `Anne Mondy`, `B.R.A.S.S.`, `Juan de Lascurain` | `metaobjectUpdate` ×3 | clear the field |
+| 17 | *Diffuser White Fololo* vendor normalised `BRASS` → `B.R.A.S.S.` | `productUpdate` | `productUpdate` |
+
+Vendors are now consistent: Anne Mondy ×3, Juan de Lascurain ×3, B.R.A.S.S. ×1,
+Art Decoris ×1 (the product with no designer at all).
+
+`transform/vendor-normalisation.yaml` carries the map and the normalisation steps —
+strip BOM and zero-width characters, trim, collapse whitespace — so this cannot recur
+during the bulk load.
+
+---
+
 ## Template for new entries
 
 ```markdown

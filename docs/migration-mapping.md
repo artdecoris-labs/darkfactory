@@ -156,6 +156,30 @@ collection for browsing and a product metafield for the link:
    artist. This is what lets a product page show "by Anne Mondy" and drives the artist
    cards.
 
+### Joining products to artists
+
+**Never join on the display name.** Odoo publishes the same brand under more than one
+spelling — `BRASS` and `B.R.A.S.S.` both appear, and the brands page renders one of them
+with a zero-width no-break space (U+FEFF). A product carrying `BRASS` and an artist
+called `B.R.A.S.S.` look identical to a human and never match in code.
+
+The artist metaobject therefore has an explicit **`vendor`** field holding the exact
+Shopify vendor string. That is the join key:
+
+```
+Odoo Designer attribute
+   → transform/vendor-normalisation.yaml
+      → Shopify product.vendor  ══ artist.vendor  → artist metaobject
+```
+
+The map and its normalisation steps live in `transform/vendor-normalisation.yaml`.
+The evaluation gate must fail on an unmapped Odoo value, or a vendor with no matching
+artist — both are silent in production otherwise.
+
+**Not every product has a designer.** *Iridescent Monolith* has no product attributes at
+all. `vendor` cannot be assumed populated; the fallback is a business decision, not a
+technical one.
+
 ### Extraction
 
 Add to the extractor: the brand model (confirm its technical name — likely

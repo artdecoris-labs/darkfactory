@@ -51,6 +51,12 @@
         "name": "Works",
         "type": "collection_reference",
         "description": "The automated collection holding this artist's products."
+      },
+      {
+        "key": "vendor",
+        "name": "Vendor key",
+        "type": "single_line_text_field",
+        "description": "The exact Shopify product vendor string for this artist. Products join to artists on this, never on the display name."
       }
     ],
     "capabilities": {

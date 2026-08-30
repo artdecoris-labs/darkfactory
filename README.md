@@ -35,6 +35,7 @@ data and secrets do not — **this repository is public**.
 | `theme-release` | Promoting `stage` → `main` |
 | `design-handoff` | Importing the Claude Design canvas into the theme |
 | `migration-run` | Running extract / evaluate / load |
+| `dlab5-ovs-shopify-connection` | Getting Shopify Admin API access for a server-side integration |
 
 ## The one rule
 

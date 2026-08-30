@@ -104,4 +104,5 @@ not what these skills assume.
 
 ## Local skills
 
-`.claude/skills/` — `store-facts`, `theme-release`, `design-handoff`, `migration-run`.
+`.claude/skills/` — `store-facts`, `theme-release`, `design-handoff`, `migration-run`,
+`dlab5-ovs-shopify-connection`.
